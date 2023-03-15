@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ProductAttributeController;
+use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -49,6 +52,15 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::post('/getcategory', 'getcategory')->name('admin.sub-sub-category.getcategory');
     });
 
+    Route::controller(ProductAttributeController::class)->prefix('admin/attribute')->group(function(){
+        Route::get('/', 'index')->name('admin.attribute.index');
+        Route::get('/create', 'create')->name('admin.attribute.create');
+        Route::post('/store', 'store')->name('admin.attribute.store');
+        Route::post('/update', 'update')->name('admin.attribute.update');
+        Route::get('/edit/{id}', 'edit')->name('admin.attribute.edit');
+        Route::get('/destroy/{id}', 'destroy')->name('admin.attribute.destroy');
+    });
+
     Route::controller(ProductController::class)->prefix('admin/products')->group(function(){
         Route::get('/', 'index')->name('admin.product.index');
         Route::get('/create', 'create')->name('admin.product.create');
@@ -58,6 +70,11 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.product.home_status');
         Route::get('/destroy/{id}', 'destroy')->name('admin.product.destroy');
         Route::post('/getcategory', 'getcategory')->name('admin.product.getcategory');
+    });
+
+    Route::controller(ColorController::class)->prefix('admin/color')->group(function(){
+        Route::post('/getcolorname', 'getcolorname')->name('admin.color.getcolorname');
+        Route::post('/update-from-controller', 'updateFromController')->name('admin.product.updateFromController');
     });
 
 });

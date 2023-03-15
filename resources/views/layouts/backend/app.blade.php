@@ -48,8 +48,8 @@
 
     <!-- Sweetalert2 css-->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/sweetalert2.min.css">
-    <!-- Sweetalert2 css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/select2-custom.min.css">
+    {{-- <!-- Sweetalert2 css-->
+    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/select2-custom.min.css"> --}}
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/style.css">
@@ -288,6 +288,7 @@
                         </li>
 
                         <li class="
+                        {{($currentRouteName == "admin.attribute.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.create"?'active':'')}}
                         ">
@@ -298,6 +299,12 @@
                             </a>
 
                             <ul class="sidebar-submenu">
+                                <li>
+                                    <a class="{{($currentRouteName == "admin.attribute.index" ?'active':'')}}" href="{{route('admin.attribute.index')}}">
+                                        <i class="fa fa-circle"></i>
+                                        <span>Products Attribute</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="{{($currentRouteName == "admin.product.index" ?'active':'')}}" href="{{route('admin.product.index')}}">
                                         <i class="fa fa-circle"></i>

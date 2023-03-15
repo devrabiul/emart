@@ -5,7 +5,9 @@
 @section('custom_css')
 <!-- ico-font-->
 <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/bootstrap-tagsinput.css">
-<link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/select2-custom.min.css">
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/select2-custom.min.css"> --}}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
 <style>
     .select2-container--default .color-preview {
         height: 12px;
@@ -14,6 +16,54 @@
         margin-right: 5px;
         margin-left: 3px;
         margin-top: 2px;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #fff !important;
+        border-color: #cbcbcb !important;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: #cbcbcb;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: bold;
+        margin-right: 3px;
+        padding-right: 5px;
+        border-right: 1px solid #cbcbcb;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+        border: solid #cbcbcb 1px;
+        outline: 0;
+    }
+
+    .bootstrap-tagsinput {
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.09);
+        border-radius: 3px;
+        color: #4d627b;
+        cursor: text;
+        display: inline-block;
+        line-height: 22px;
+        margin-bottom: 0;
+        max-width: 100%;
+        min-width: 100%;
+        padding: 4px 6px 0;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    .bootstrap-tagsinput .tag {
+        border-radius: 2px;
+        background: #00a36c;
+        color: #000;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: normal;
+        margin: 0 2px 5px 0;
+        padding: 5px;
+        border: 1px solid #00a36c;
     }
 
 </style>
@@ -54,219 +104,43 @@
 
 
 
-
-<!-- Main Container Start -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <form action="{{route('admin.sub-sub-category.store')}}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
+<form action="{{route('admin.sub-sub-category.store')}}" method="post" enctype="multipart/form-data"
+    id="product_create_form">
+    @csrf
+    <!-- Main Container Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
                         <div class="row">
 
                             <div class="col-md-6 mb-3">
                                 <label class="title-color" for="">Product Name</label>
-                                <input type="text" name="name" class="form-control" name="Product Name">
+                                <input type="text" class="form-control" name="product_name" id="product_name">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="title-color" for="">Product SKU</label>
-                                <input type="text" name="name" class="form-control" placeholder="Product SKU">
+                                <input type="text" name="product_sku" class="form-control" placeholder="Product SKU">
                             </div>
 
                             <div class="col-md-12 mb-3">
                                 <label class="">Description :</label>
                                 <div class="description-sm">
-                                    <textarea id="editor1" name="editor1" cols="10" rows="4"></textarea>
+                                    <textarea id="editor1" name="description" cols="10" rows="4"></textarea>
                                 </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4>Variations</h4>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="title-color" for="">Color</label>
-                                <select class="form-control js-example-basic-multiple js-states color-var-select"
-                                    name="colors[]" multiple="multiple" id="color_box" required>
-                                    @foreach ($color as $item)
-                                    <option value="{{$item->code}}">{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="title-color" for="">Attributes</label>
-                                <select class="form-control js-example-basic-multiple js-states select2-custom-multiple"
-                                    name="attr[]" multiple="multiple" id="" required>
-
-                                    <option value="size">Size</option>
-                                    <option value="type">Type</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-12 mb-3">
-                                <div class="col-12 form-group sku_combination" id="sku_combination">
-                                    <table class="table table-bordered physical_product_show">
-                                        <thead>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Variant</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Variant Price</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">SKU</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Quantity</label>
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="generateHtmlTable">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4>General Info</h4>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="title-color" for="product_type">Product type</label>
-                                <select class="form-select" name="" id="product_type" required>
-                                    <option disabled="" selected="">Select A Type</option>
-                                    <option value="physical">Physical</option>
-                                    <option value="digital">Digital</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="title-color" for="brand_id">Brand</label>
-                                <select class="form-select" name="" id="brand_id" required>
-                                    <option disabled="" selected="">Select A Brand</option>
-                                    @foreach ($category as $item)
-                                    <option value="{{$item->id}}"><span class="color-preview"
-                                            style="background-color:#9966CC;"></span> {{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="title-color" for="">Category</label>
-                                <select class="form-select" name="" id="category_id" required>
-                                    <option disabled="" selected="">Select A Category</option>
-                                    @foreach ($category as $item)
-                                    <option value="{{$item->id}}"><span class="color-preview"
-                                            style="background-color:#9966CC;"></span> {{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="title-color" for="parent_id">Sub Category</label>
-
-                                <select class="form-select" name="parent_id" id="parent_id" required>
-                                    <option disabled="" selected="">Select Sub Category</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 mb-3">
-                                <label class="title-color">Sub Sub Category Name<span
-                                        class="text-danger">*</span></label>
-                                <select class="form-select" name="sub_parent_id" id="sub_parent_id" required>
-                                    <option disabled="" selected="">Select Sub Sub Category</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="title-color" for="priority">Priority</label>
-
-                                <select class="form-select" name="priority" id="" required="">
-                                    <option disabled="" selected="">Set Priority</option>
-                                    @for ($i = 0; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
-                                        @endfor
-                                </select>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <label class="title-color">Sub Category Logo</label>
-                                <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>
-                                <div class="custom-file text-left">
-                                    <input type="file" name="image" class="form-control">
-
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3 text-end">
-                                <button type="reset" class="btn btn-sm btn-danger">Reset</button>
-                                <button type="submit" class="btn btn-sm btn-success">Submit</button>
                             </div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
+
+        @include('backend.products.variant')
+        @include('backend.products.general_info')
+</form>
 </div>
 <!-- Main Container End -->
-
-<!-- Container-fluid starts-->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row product-adding">
-
-                        <div class="col-xl-12">
-                            <form class="needs-validation add-product-form" novalidate="">
-                                <div class="form-group row">
-
-                                    <div class="offset-xl-3 offset-sm-4 mt-4">
-                                        <button type="submit" class="btn btn-primary">Add</button>
-                                        <button type="button" class="btn btn-light">Discard</button>
-                                    </div>
-                                </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Container-fluid Ends-->
 
 
 @endsection
@@ -275,13 +149,16 @@
 <!-- ckeditor js-->
 <script src="{{asset('public/assets/backend')}}/js/editor/ckeditor/ckeditor.js"></script>
 <script src="{{asset('public/assets/backend')}}/js/editor/ckeditor/ckeditor.custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
 <!--script admin-->
 <script src="{{asset('public/assets/backend')}}/js/bootstrap-tagsinput.js"></script>
 
 <script>
     $('#category_id').on('change', function () {
+        updateFromController();
+
         let category = $('#category_id').val();
 
         $.ajax({
@@ -296,7 +173,6 @@
             },
         });
     });
-
 </script>
 
 <script>
@@ -323,34 +199,47 @@
         return "<span class='color-preview' style='background-color:" + colorCode + ";'></span>" + state
             .text;
     };
-
 </script>
+
 <script>
-    $('#color_box').on('change', function () {
-        var selectedValues = $(this).val();
-        if (selectedValues != null) {
 
+    $('#attributes_box').on('change', function () {
+
+        updateFromController();
+
+        let attributesValues = $('#attributes_box').val();
+        if (attributesValues != null) {
+            // Attributes Html Generator
+            let let_gen_html_for_Attr = '';
+            $.each(attributesValues, function (att_index, att_value) {
+                let_gen_html_for_Attr += `<div class="row"><div class="col-md-3 mb-2">` +
+                    `<input type="hidden" name="choice_no[]" value="` + (att_index +1 )+ `">` +
+                    `<input type="text" class="form-control" name="choice[]" value="${att_value}" placeholder="Choice Title" readonly>` +
+                    `</div><div class="col-lg-9 mb-2">` +
+                    `<input type="text" class="form-control input_tagsinput" name="choice_options_${att_index+1}[]" placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()">` +
+                    `</div></div>`;
+            });
+            $('#attributes_area').html(let_gen_html_for_Attr);
+            $("input[data-role=tagsinput]").tagsinput();
         } else {
-            $('#generateHtmlTable').html("");
+            $('#attributes_area').html("");
         }
-        console.log(selectedValues);
-        // let p_root_html = `<tr><td><label for="" class="control-label"></label></td>` +
-        //     `<td><input type="number" name="" value="" min="0" step="0.01" class="form-control" required="">` +
-        //     `</td><td><input type="text" name="" value="" class="form-control" required=""></td>` +
-        //     `<td><input type="number" name="" value="1" min="1" ` +
-        //     `max="1000000" step="1" class="form-control" required=""></td></tr>`;
-
-        let generateHtml = '';
-        $.each(selectedValues, function (index, value) {
-            generateHtml += `<tr><td><label for="" class="control-label">`+value+`</label></td>` +
-            `<td><input type="number" name="" value="" min="0" step="0.01" class="form-control" required="">` +
-            `</td><td><input type="text" name="" value="" class="form-control" required=""></td>` +
-            `<td><input type="number" name="" value="1" min="1" ` +
-            `max="1000000" step="1" class="form-control" required=""></td></tr>`;
-        });
-
-        $('#generateHtmlTable').html(generateHtml);
     });
 
+    $('#color_box, #product_name').on('change', function () {
+        updateFromController();
+    });
+
+    function updateFromController() {
+        $.ajax({
+            type: "POST",
+            url: `{{ route('admin.product.updateFromController') }}`,
+            data: $('#product_create_form').serialize(),
+            success: function (data) {
+                $('#sku_comb_result').html(data.html);
+            }
+        });
+    }
 </script>
+
 @endsection

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -27,12 +28,14 @@ class ProductController extends Controller
     public function create()
     {
         $data = Product::all();
+        $productAttribute = ProductAttribute::all();
         $color = Color::orderBy('name', 'ASC')->get();
         $category = Category::where('position','=', 0)->get();
         return view('backend.products.create',[
             'data'=>$data,
             'color'=>$color,
             'category'=>$category,
+            'productAttribute'=>$productAttribute,
         ]);
     }
 
