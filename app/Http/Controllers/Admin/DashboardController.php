@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +15,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('backend.index');
+        $user = User::count();
+        $someInfo = [
+            'users'=>User::count(),
+            'product'=>Product::count(),
+        ];
+        return view('backend.index',[
+            // 'user'=>$user,
+            'someInfo'=>$someInfo,
+        ]);
     }
 
     /**
