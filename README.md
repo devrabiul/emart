@@ -1,5 +1,5 @@
 # EMart - An eCommerce Website
-![Logo](https://raw.githubusercontent.com/rixetbd/HiHr/main/human-resource-banner.jpg)
+![Logo](https://i.ibb.co/DW5wbRD/paper-art-shopping-online-on-smartphone-and-new-buy-sale-promotion-pink-backgroud-for-banner-market.jpg)
 
 Laravel eCommerce Website.
 
