@@ -55,7 +55,7 @@ class ProductController extends Controller
         if ($request->has('variant_quantity')) {
             foreach ($request->variant_quantity as $key => $value) {
                 $v_index = $key;
-                $variant_img_name = Str::slug($request->product_name).Str::slug($request->variant_name[$v_index]).'.'.$request->variant_img[$v_index]->getClientOriginalExtension();
+                $variant_img_name = Str::slug($request->product_name) ."-skuimg-".Str::slug($request->variant_name[$v_index]).".".$request->variant_img[$v_index]->getClientOriginalExtension();
                 $variant_data[] = [
                     'variant_name'=>$request->variant_name[$v_index],
                     'variant_price'=>$request->variant_price[$v_index],
