@@ -55,11 +55,13 @@ class ProductController extends Controller
         if ($request->has('variant_quantity')) {
             foreach ($request->variant_quantity as $key => $value) {
                 $v_index = $key;
+                $variant_img_name = Str::slug($request->product_name).Str::slug($request->variant_name[$v_index]).'.'.$request->variant_img[$v_index]->getClientOriginalExtension();
                 $variant_data[] = [
                     'variant_name'=>$request->variant_name[$v_index],
                     'variant_price'=>$request->variant_price[$v_index],
                     'variant_sku'=>$request->variant_sku[$v_index],
                     'variant_quantity'=>$request->variant_quantity[$v_index],
+                    'variant_img'=>$variant_img_name,
                 ];
             }
         }
@@ -79,19 +81,22 @@ class ProductController extends Controller
         $data = [
             'name'=>$request->product_name,
             'slug'=>Str::slug($request->product_name),
-            'category_id'=>$category_id,
+            'category_id'=>json_encode($category_id),
             'type'=>$request->product_type,
-            'colors'=>$request->colors,
             'product_sku'=>Str::replace(' ', '', $request->product_sku),
-            // 'purchase_price'=>$request->
-            // 'selling_price'=>$request->
-            // 'subcategory_id'=>$request->
+            'colors'=>json_encode($request->colors),
+            'attribute'=>json_encode($request->attr),
+            'purchase_price'=>$request->purchase_price,
+            'selling_price'=>$request->selling_price,
             'brand_id'=>$request->brand_id,
-            // 'priority'=>$request->
-            // 'home_status'=>$request->
-            // 'image'=>$request->
-            'variation'=>$variant_data,
-            'description'=>$request->description,
+            'total_quantity'=>$request->total_quantity,
+            'discount'=>$request->discount,
+            'discount_type'=>$request->discount_type,
+            'tax'=>$request->tax,
+            'home_status'=>1,
+            'thumbnail'=>$request->thumbnail,
+            'variation'=>json_encode($variant_data),
+            'description'=>json_decode($request->description),
             'created_at'=>Carbon::now(),
         ];
 
@@ -105,17 +110,23 @@ class ProductController extends Controller
             'category_id'=>json_encode($category_id),
             'type'=>$request->product_type,
             'product_sku'=>Str::replace(' ', '', $request->product_sku),
-            // 'colors'=>$request->colors,
-            // 'purchase_price'=>$request->
-            // 'selling_price'=>$request->
-            // 'subcategory_id'=>$request->
+            'colors'=>json_encode($request->colors),
+            'attribute'=>json_encode($request->attr),
+            'purchase_price'=>$request->purchase_price,
+            'selling_price'=>$request->selling_price,
             'brand_id'=>$request->brand_id,
+            'total_quantity'=>$request->total_quantity,
+            'discount'=>$request->discount,
+            'discount_type'=>$request->discount_type,
+            'tax'=>$request->tax,
             'home_status'=>1,
-            // 'image'=>$request->
+            'thumbnail'=>$request->thumbnail,
             'variation'=>json_encode($variant_data),
             'description'=>json_decode($request->description),
             'created_at'=>Carbon::now(),
         ]);
+
+        return $data;
 
 
     }

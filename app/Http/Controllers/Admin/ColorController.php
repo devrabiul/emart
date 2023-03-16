@@ -89,7 +89,10 @@ class ColorController extends Controller
             }
         }
 
-        array_push($arrayOfCombination, $request->colors);
+
+        if ($request->has('colors') && count($request->colors)>0) {
+            array_push($arrayOfCombination, $request->colors);
+        }
 
         if ($request->has('attr') && count($request->attr)>0) {
             for ($i=1; $i <= count($request->attr); $i++) {
@@ -130,7 +133,8 @@ class ColorController extends Controller
                         '<td><input type="number" name="variant_price[]" value="" min="0" step="0.01" class="form-control" required=""></td>'.
                         '<td><input type="text" name="variant_sku[]" value="'.$p_gen_name.'-'.$variant_name.'" class="form-control" required=""></td>'.
                         '<td><input type="number" name="variant_quantity[]" value="1" min="1" max="1000000" step="1" class="form-control" '.
-                        'required=""></td></tr>';
+                        'required=""></td>'.
+                        '<td><input type="file" name="variant_img[]" class="form-control" required=""></td></tr>';
             }
         }
 
@@ -146,7 +150,9 @@ class ColorController extends Controller
                 '<label for="" class="control-label">SKU</label>'.
                 '</td><td class="text-center">'.
                 '<label for="" class="control-label">Quantity</label>'.
-                '</td</tr></thead>'.
+                '</td><td class="text-center">'.
+                '<label for="" class="control-label">Image</label>'.
+                '</td></tr></thead>'.
                 '<tbody id="generateHtmlTable">'.$colors.'</tbody></table>';
 
         // dd($html);
