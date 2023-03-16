@@ -21,6 +21,16 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function auto_data_in_json()
+    {
+        $data = Category::where('position', '=', 0)->get();
+
+        return $data;
+        // return response()->json([
+        //     'autodata'=>$data,
+        // ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

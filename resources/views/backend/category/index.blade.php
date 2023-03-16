@@ -84,7 +84,7 @@
             <div class="card">
                 <div class="card-header pt-5 pb-1">
                     <h4>Category list</h4>
-                    <h4>Total : </h4>
+                    <h4>Total : {{count($data)}}</h4>
                     {{-- <a class="btn btn-success mt-md-0 mt-2">Add
                         Category</a> --}}
                 </div>
@@ -104,7 +104,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($data as $key=>$item)
+                                {{-- @foreach ($data as $key=>$item)
 
                                 <tr>
                                     <td>{{$key+1}}</td>
@@ -119,9 +119,9 @@
 
                                     <td>
                                         @if ($item->home_status == 0)
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>1])}}" class="btn btn-sm btn-success p-2">Active</a>
+                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>1])}}" class="btn btn-sm btn-success">Active</a>
                                         @else
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>0])}}" class="btn btn-sm btn-danger p-2">Deactive</a>
+                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>0])}}" class="btn btn-sm btn-danger">Deactive</a>
                                         @endif
                                     </td>
 
@@ -135,7 +135,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach --}}
 
 
                             </tbody>
@@ -153,7 +153,56 @@
 
 @section('custom_js')
 <script>
-    $('#datatableTable').DataTable();
+    // $('#datatableTable').DataTable();
+</script>
+
+<script>
+    $('#datatableTable').DataTable({
+        ajax: {
+            type: "get",
+            url: `{{route('admin.category.auto_data_in_json')}}`,
+            dataSrc: ''
+        },
+        columns: [{
+                data: null,
+                render: function (data, type, full, meta) {
+                    return meta.row + 1;
+                }
+            },
+            {
+                "data": function (data, type) {
+                    return `<a href="../application/uploads/products/` + data.picture + `" data-lightbox="roadtrip"><img class="img-thumbnail w-50" src="../application/uploads/products/` + data.picture + `" itemprop="thumbnail" alt="Image description"></a>`;
+                }
+            },
+            {
+                data: 'name'
+            },
+            {
+                data: 'priority'
+            },
+            {
+                data: 'home_status'
+            },
+            // {
+            //     "data": function (data, type) {
+            //         return `<a class="pswp" href="../application/upload/products/` + data.picture + `" itemprop="contentUrl" data-size="1600x950">
+            //             <img class="img-thumbnail" src="../application/upload/products/` + data.picture +
+            //             `" itemprop="thumbnail" alt="Image description"></a>`;
+            //     }
+            // },
+            {
+                "data": null, // (data, type, row)
+                className: "text-center",
+                render: function (data) {
+                    return `<button class="border-0 btn-sm btn-info me-2" onclick="cat_edit('` +
+                        data.id + `','` + data.name + `','` + data.category_id +
+                        `')"><i class="fa fa-edit"></i></button>` +
+                        `<button class="border-0 btn-sm btn-danger me-2" onclick="cat_distroy('` +
+                        data.id + `')"><i class="fa fa-trash"></i></button>`;
+                },
+            },
+        ]
+    });
 </script>
 
 @endsection

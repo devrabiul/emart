@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'] , function(){
 
     Route::controller(CategoryController::class)->prefix('admin/category')->group(function(){
         Route::get('/', 'index')->name('admin.category.index');
+        Route::get('/auto_data_in_json', 'auto_data_in_json')->name('admin.category.auto_data_in_json');
         Route::get('/create', 'create')->name('admin.category.create');
         Route::post('/store', 'store')->name('admin.category.store');
         Route::get('/edit/{id}', 'edit')->name('admin.category.edit');

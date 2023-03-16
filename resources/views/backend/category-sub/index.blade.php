@@ -102,7 +102,7 @@
             <div class="card">
                 <div class="card-header pt-5 pb-1">
                     <h4>Sub Category list</h4>
-                    <h4>Total : </h4>
+                    <h4>Total : {{count($data)}}</h4>
                     {{-- <a class="btn btn-success mt-md-0 mt-2">Add
                         Category</a> --}}
                 </div>
@@ -139,9 +139,9 @@
 
                                     <td>
                                         @if ($item->home_status == 0)
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>1])}}" class="btn btn-sm btn-success p-2">Active</a>
+                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>1])}}" class="btn btn-sm btn-success">Active</a>
                                         @else
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>0])}}" class="btn btn-sm btn-danger p-2">Deactive</a>
+                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>0])}}" class="btn btn-sm btn-danger">Deactive</a>
                                         @endif
                                     </td>
 
