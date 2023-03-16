@@ -34,21 +34,22 @@
 <!-- Main Container Start -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header pt-4 pb-1">
                     <h4>Add Category</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data" id="ajaxFormStore">
+                    <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data"
+                        id="ajaxFormStore">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color">Category Name<span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control" placeholder="New Category"
                                     required="">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color" for="priority">Priority</label>
 
                                 <select class="form-select" name="priority" id="">
@@ -74,12 +75,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header pt-5 pb-1">
                     <h4>Category list</h4>
@@ -106,6 +103,7 @@
     </div>
 </div>
 <!-- Main Container End -->
+
 
 
 @endsection
@@ -139,7 +137,13 @@
                 data: 'priority'
             },
             {
-                data: 'home_status'
+                data: function (data) {
+                    return `<button name="status" class="home_status" onclick="status_change(` +
+                        data.id + `)">` +
+                        (data.home_status == 1 ? '<i class="fa fa-toggle-on"></i>' :
+                            '<i class="fa fa-toggle-off"></i>') +
+                        `</button>`;
+                }
             },
             // {
             //     "data": function (data, type) {
@@ -168,15 +172,15 @@
     /* Data Destroy || Start */
     $('#ajaxFormStore').on('submit', function (e) {
         e.preventDefault();
-    // alert('Ho');
+        // alert('Ho');
         var form = this;
         $.ajax({
-            url:$(form).attr('action'),
-            method:$(form).attr('method'),
-            data:new FormData(form),
-            dataType:'json',
-            processData:false,
-            contentType:false,
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: new FormData(form),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
             beforeSend: function () {
 
             },
@@ -191,6 +195,7 @@
         });
     });
     /* Data Destroy || End */
+
 </script>
 
 <script>
@@ -224,5 +229,29 @@
         })
     }
     /* Data Destroy || End */
+
 </script>
+
+<script>
+    function status_change(id) {
+        $.ajax({
+            type: "POST",
+            url: `{{route('admin.category.status-change')}}`,
+            data: {
+                "id": id,
+            },
+            success: function (data) {
+                $('#datatableTable').DataTable().ajax.reload();
+                notyf.success('Update successfully.');
+            },
+            error: function (request, status, error) {
+                notyf.error('Update Unsuccessful.');
+            }
+        });
+    }
+
+    /* Data Destroy || End */
+
+</script>
+
 @endsection

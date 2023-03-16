@@ -39,7 +39,7 @@
 <!-- Main Container Start -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header pt-4 pb-1">
                     <h4>Add Sub Category</h4>
@@ -49,7 +49,7 @@
                         @csrf
                         <div class="row">
 
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color" for="parent_id">Parent Category</label>
 
                                 <select class="form-select" name="parent_id" id="parent_id" required>
@@ -60,13 +60,13 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color">Sub Category Name<span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control" placeholder="Sub Category"
                                     required="">
                             </div>
 
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color" for="priority">Priority</label>
 
                                 <select class="form-select" name="priority" id="" required="">
@@ -76,7 +76,7 @@
                                     @endfor
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label class="title-color">Sub Category Logo</label>
                                 <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>
                                 <div class="custom-file text-left">
@@ -93,12 +93,9 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
+
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header pt-5 pb-1">
                     <h4>Sub Category list</h4>

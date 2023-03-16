@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::post('/store', 'store')->name('admin.category.store');
         Route::get('/edit/{id}', 'edit')->name('admin.category.edit');
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.category.home_status');
+        Route::post('/status-change', 'status_change')->name('admin.category.status-change');
         Route::post('/destroy', 'destroy')->name('admin.category.destroy');
     });
 

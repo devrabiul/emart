@@ -5014,7 +5014,7 @@ table tr th {
 
 .all-package tbody tr td:first-child {
     text-transform: uppercase;
-    font-weight: bold
+    font-weight: 400;
 }
 
 .all-package tbody tr td:last-child {
@@ -9105,7 +9105,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 .dataTables_wrapper table.dataTable th {
     background-color: #f1f4fb !important;
-    padding: 24px 0.75rem !important
+    padding: 15px 0.75rem !important
 }
 
 .dataTables_wrapper table.dataTable thead .sorting:before,
@@ -10076,7 +10076,7 @@ ul.notification-dropdown.onhover-show-div li+li:hover {
     text-transform: capitalize;
     font-weight: 500;
     color: #fff;
-    padding: 15px 18px
+    padding: 10px 18px
 }
 
 .page-wrapper .page-body-wrapper .page-sidebar .sidebar-menu .sidebar-header svg {
@@ -14595,11 +14595,27 @@ body.rtl .table-category tbody tr td:first-child {
 
 /*# sourceMappingURL=style.css.map */
 
+.table-responsive {
+    overflow-x: unset !important;
+}
 /* Notyf Toast */
 .notyf__toast {
     max-width: 600px !important;
 }
 .notyf__ripple{
     width: 600px !important;
+}
+.home_status{
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+}
+.home_status .fa-toggle-on{
+    color: #00A36C;
+}
+.home_status .fa-toggle-off{
+    color: #c64e40;
 }
 /* Notyf Toast */

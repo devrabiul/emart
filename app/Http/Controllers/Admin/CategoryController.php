@@ -106,4 +106,22 @@ class CategoryController extends Controller
         ]);
         return back();
     }
+    public function status_change(Request $request)
+    {
+        $category = Category::where('id', '=', $request->id)->first();
+
+        if ($category->home_status == 0) {
+            Category::where('id', '=', $request->id)->update([
+                'home_status'=>1,
+            ]);
+        } else {
+            Category::where('id', '=', $request->id)->update([
+                'home_status'=>0,
+            ]);
+        }
+
+        return response()->json([
+            'success'=>'success',
+        ]);
+    }
 }
