@@ -4992,7 +4992,7 @@ table tr th {
     font-size: calc(13px + (16 - 13) * ((100vw - 320px) / (1920 - 320)));
     color: #232323;
     text-align: center;
-    min-width: fit-content;
+    max-width: fit-content !important;
     background-color: #f8f8f9;
     padding: 15px 20px
 }
@@ -5000,7 +5000,7 @@ table tr th {
 .all-package tbody tr td {
     text-align: center;
     padding: 15px 20px;
-    min-width: fit-content;
+    max-width: fit-content;
     border-bottom: 1px solid #dee2e6
 }
 
@@ -14594,3 +14594,12 @@ body.rtl .table-category tbody tr td:first-child {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Notyf Toast */
+.notyf__toast {
+    max-width: 600px !important;
+}
+.notyf__ripple{
+    width: 600px !important;
+}
+/* Notyf Toast */

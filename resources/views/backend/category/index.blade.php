@@ -40,7 +40,7 @@
                     <h4>Add Category</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data" id="ajaxFormStore">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -53,16 +53,15 @@
 
                                 <select class="form-select" name="priority" id="" required="">
                                     <option disabled="" selected="">Set Priority</option>
-                                    @for ($i = 0; $i <= 10; $i++)
-                                        <option value="{{$i}}">{{$i}}</option>
-                                    @endfor
+                                    @for ($i = 0; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                        @endfor
                                 </select>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="title-color">Category Logo</label>
                                 <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>
                                 <div class="custom-file text-left">
-                                    <input type="file" name="image" class="form-control">
+                                    <input type="file" name="picture" class="form-control">
 
                                 </div>
                             </div>
@@ -84,11 +83,7 @@
             <div class="card">
                 <div class="card-header pt-5 pb-1">
                     <h4>Category list</h4>
-                    <h4>Total : {{count($data)}}</h4>
-                    {{-- <a class="btn btn-success mt-md-0 mt-2">Add
-                        Category</a> --}}
                 </div>
-
                 <div class="card-body">
                     <div class="table-responsive table-desi">
                         <table class="table all-package table-category " id="datatableTable">
@@ -102,43 +97,7 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
-                            <tbody>
-                                {{-- @foreach ($data as $key=>$item)
-
-                                <tr>
-                                    <td>{{$key+1}}</td>
-
-                                    <td>
-                                        <img src="{{asset('public/assets/backend')}}/images/dashboard/product/1.jpg" data-field="image" alt="">
-                                    </td>
-
-                                    <td>{{$item->name}}</td>
-
-                                    <td>{{$item->priority}}</td>
-
-                                    <td>
-                                        @if ($item->home_status == 0)
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>1])}}" class="btn btn-sm btn-success">Active</a>
-                                        @else
-                                            <a href="{{route('admin.category.home_status',['id'=>$item->id, 'status'=>0])}}" class="btn btn-sm btn-danger">Deactive</a>
-                                        @endif
-                                    </td>
-
-                                    <td>
-                                        <a class="px-1" href="{{route('admin.category.edit', $item->id)}}">
-                                            <i class="fa fa-edit" title="Edit"></i>
-                                        </a>
-
-                                        <a class="px-1 text-danger btn" href="{{route('admin.category.destroy', $item->id)}}">
-                                            <i class="fa fa-trash" title="Delete"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach --}}
-
-
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -151,10 +110,8 @@
 
 @endsection
 
+
 @section('custom_js')
-<script>
-    // $('#datatableTable').DataTable();
-</script>
 
 <script>
     $('#datatableTable').DataTable({
@@ -171,7 +128,8 @@
             },
             {
                 "data": function (data, type) {
-                    return `<a href="../application/uploads/products/` + data.picture + `" data-lightbox="roadtrip"><img class="img-thumbnail w-50" src="../application/uploads/products/` + data.picture + `" itemprop="thumbnail" alt="Image description"></a>`;
+                    return `<img class="img-thumbnail w-50" src="/products/` + data.picture +
+                        `" alt="` + data.picture + `">`;
                 }
             },
             {
@@ -197,12 +155,74 @@
                     return `<button class="border-0 btn-sm btn-info me-2" onclick="cat_edit('` +
                         data.id + `','` + data.name + `','` + data.category_id +
                         `')"><i class="fa fa-edit"></i></button>` +
-                        `<button class="border-0 btn-sm btn-danger me-2" onclick="cat_distroy('` +
+                        `<button class="border-0 btn-sm btn-danger me-2" onclick="data_destroy('` +
                         data.id + `')"><i class="fa fa-trash"></i></button>`;
                 },
             },
         ]
     });
+
 </script>
 
+<script>
+    /* Data Destroy || Start */
+    $('#ajaxFormStore').on('submit', function (e) {
+        e.preventDefault();
+    // alert('Ho');
+        var form = this;
+        $.ajax({
+            url:$(form).attr('action'),
+            method:$(form).attr('method'),
+            data:new FormData(form),
+            dataType:'json',
+            processData:false,
+            contentType:false,
+            beforeSend: function () {
+                
+            },
+            success: function (data) {
+                $('input').val();
+                $('#datatableTable').DataTable().ajax.reload();
+                notyf.success('Delete successfully.');
+            },
+            error: function (request, status, error) {
+                notyf.error(request.responseJSON.message);
+            }
+        });
+    });
+    /* Data Destroy || End */
+</script>
+
+<script>
+    /* Data Destroy || Start */
+    function data_destroy(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: `{{route('admin.category.destroy')}}`,
+                    data: {
+                        "id": id,
+                    },
+                    success: function (data) {
+                        $('#datatableTable').DataTable().ajax.reload();
+                        notyf.success('Delete successfully.');
+                    },
+                    error: function (request, status, error) {
+                        notyf.error('Delete Unsuccessful.');
+                    }
+                });
+            }
+        })
+    }
+    /* Data Destroy || End */
+</script>
 @endsection

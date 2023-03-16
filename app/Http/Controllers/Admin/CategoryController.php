@@ -50,13 +50,15 @@ class CategoryController extends Controller
         Category::insert([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
-            'icon'=>$request->icon,
+            'picture'=>$request->picture,
             'parent_id'=>0,
             'position'=>0,
             'priority'=>$request->priority,
             'created_at'=>Carbon::now(),
         ]);
-        return back();
+        return response()->json([
+            'success'=>'success',
+        ]);
     }
 
     /**
@@ -91,9 +93,9 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        Category::findOrFail($id)->delete();
+        Category::findOrFail($request->id)->delete();
         return back();
     }
 

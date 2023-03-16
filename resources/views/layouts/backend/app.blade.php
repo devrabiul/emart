@@ -1,5 +1,5 @@
 @php
-    $currentRouteName = Route::currentRouteName();
+$currentRouteName = Route::currentRouteName();
 @endphp
 
 <!DOCTYPE html>
@@ -44,10 +44,11 @@
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/vendors/bootstrap.css">
 
     <!-- DataTables css-->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/jquery.dataTables.min.css">
 
     <!-- Sweetalert2 css-->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/notyf.min.css">
     {{-- <!-- Sweetalert2 css-->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/backend')}}/css/select2-custom.min.css"> --}}
 
@@ -230,7 +231,7 @@
                         <a href="{{route('admin.dashboard')}}">
                             <img class="d-none d-lg-block blur-up lazyloaded"
                                 src="{{asset('public/assets/backend')}}/images/dashboard/multikart-logo.pngv" alt="">
-                                <h3>EMART</h3>
+                            <h3>EMART</h3>
                         </a>
                     </div>
                 </div>
@@ -238,418 +239,424 @@
                     <a href="javascript:void(0)" class="sidebar-back d-lg-none d-block"><i class="fa fa-times"
                             aria-hidden="true"></i></a>
                     {{-- <div class="sidebar-user">
-                        <img class="img-60" src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg" alt="#">
-                        <div>
-                            <h6 class="f-14">{{Auth::user()->name}}</h6>
-                            <p>general manager.</p>
-                        </div>
-                    </div> --}}
-                    <ul class="sidebar-menu">
-                        <li>
-                            <a class="sidebar-header" href="{{route('admin.dashboard')}}">
-                                <i data-feather="home"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
+                        <img class="img-60" src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg"
+                    alt="#">
+                    <div>
+                        <h6 class="f-14">{{Auth::user()->name}}</h6>
+                        <p>general manager.</p>
+                    </div>
+                </div> --}}
+                <ul class="sidebar-menu">
+                    <li>
+                        <a class="sidebar-header" href="{{route('admin.dashboard')}}">
+                            <i data-feather="home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
-                        <li class="
+                    <li class="
                         {{($currentRouteName == "admin.category.index"?'active':'')}}
                         {{($currentRouteName == "admin.sub-category.index"?'active':'')}}
                         {{($currentRouteName == "admin.sub-sub-category.index"?'active':'')}}
                         ">
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="archive"></i>
-                                <span>Category Setup</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="archive"></i>
+                            <span>Category Setup</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
 
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.category.index" ?'active':'')}}" href="{{route('admin.category.index')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Categories</span>
-                                    </a>
-                                </li>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a class="{{($currentRouteName == "admin.category.index" ?'active':'')}}"
+                                    href="{{route('admin.category.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Categories</span>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.sub-category.index" ?'active':'')}}" href="{{route('admin.sub-category.index')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Sub Categories</span>
-                                    </a>
-                                </li>
+                            <li>
+                                <a class="{{($currentRouteName == "admin.sub-category.index" ?'active':'')}}"
+                                    href="{{route('admin.sub-category.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Sub Categories</span>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.sub-sub-category.index" ?'active':'')}}" href="{{route('admin.sub-sub-category.index')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Sub Sub Categories</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a class="{{($currentRouteName == "admin.sub-sub-category.index" ?'active':'')}}"
+                                    href="{{route('admin.sub-sub-category.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Sub Sub Categories</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li class="
+                    <li class="
                         {{($currentRouteName == "admin.attribute.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.create"?'active':'')}}
                         ">
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="box"></i>
-                                <span>Products</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="box"></i>
+                            <span>Products</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
 
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.attribute.index" ?'active':'')}}" href="{{route('admin.attribute.index')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Products Attribute</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.product.index" ?'active':'')}}" href="{{route('admin.product.index')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Products List</span>
-                                    </a>
-                                </li>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a class="{{($currentRouteName == "admin.attribute.index" ?'active':'')}}"
+                                    href="{{route('admin.attribute.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Products Attribute</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{($currentRouteName == "admin.product.index" ?'active':'')}}"
+                                    href="{{route('admin.product.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Products List</span>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a class="{{($currentRouteName == "admin.product.create" ?'active':'')}}" href="{{route('admin.product.create')}}">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Add Product</span>
-                                    </a>
-                                </li>
+                            <li>
+                                <a class="{{($currentRouteName == "admin.product.create" ?'active':'')}}"
+                                    href="{{route('admin.product.create')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Add Product</span>
+                                </a>
+                            </li>
 
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
 
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="archive"></i>
-                                <span>Orders</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="archive"></i>
+                            <span>Orders</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
 
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="order-list.html">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Order List</span>
-                                    </a>
-                                </li>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="order-list.html">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Order List</span>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="order-tracking.html">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Order Tracking</span>
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="order-tracking.html">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Order Tracking</span>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="order-detail.html">
-                                        <i class="fa fa-circle"></i>
-                                        <span>Order Details</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a href="order-detail.html">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Order Details</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="dollar-sign"></i>
-                                <span>Sales</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="order.html">
-                                        <i class="fa fa-circle"></i>Orders
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="transactions.html">
-                                        <i class="fa fa-circle"></i>Transactions
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="dollar-sign"></i>
+                            <span>Sales</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="order.html">
+                                    <i class="fa fa-circle"></i>Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a href="transactions.html">
+                                    <i class="fa fa-circle"></i>Transactions
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="tag"></i>
-                                <span>Coupons</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="coupon-list.html">
-                                        <i class="fa fa-circle"></i>List Coupons
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="coupon-create.html">
-                                        <i class="fa fa-circle"></i>Create Coupons
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="tag"></i>
+                            <span>Coupons</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="coupon-list.html">
+                                    <i class="fa fa-circle"></i>List Coupons
+                                </a>
+                            </li>
+                            <li>
+                                <a href="coupon-create.html">
+                                    <i class="fa fa-circle"></i>Create Coupons
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="clipboard"></i>
-                                <span>Pages</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="pages-list.html">
-                                        <i class="fa fa-circle"></i>List Page
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="page-create.html">
-                                        <i class="fa fa-circle"></i>Create Page
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="clipboard"></i>
+                            <span>Pages</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="pages-list.html">
+                                    <i class="fa fa-circle"></i>List Page
+                                </a>
+                            </li>
+                            <li>
+                                <a href="page-create.html">
+                                    <i class="fa fa-circle"></i>Create Page
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="media.html">
-                                <i data-feather="camera"></i>
-                                <span>Media</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="media.html">
+                            <i data-feather="camera"></i>
+                            <span>Media</span>
+                        </a>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="align-left"></i>
-                                <span>Menus</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="menu-list.html">
-                                        <i class="fa fa-circle"></i>Menu Lists
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="create-menu.html">
-                                        <i class="fa fa-circle"></i>Create Menu
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="align-left"></i>
+                            <span>Menus</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="menu-list.html">
+                                    <i class="fa fa-circle"></i>Menu Lists
+                                </a>
+                            </li>
+                            <li>
+                                <a href="create-menu.html">
+                                    <i class="fa fa-circle"></i>Create Menu
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="user-plus"></i>
-                                <span>Users</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="user-list.html">
-                                        <i class="fa fa-circle"></i>User List
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="create-user.html">
-                                        <i class="fa fa-circle"></i>Create User
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="user-plus"></i>
+                            <span>Users</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="user-list.html">
+                                    <i class="fa fa-circle"></i>User List
+                                </a>
+                            </li>
+                            <li>
+                                <a href="create-user.html">
+                                    <i class="fa fa-circle"></i>Create User
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="users"></i>
-                                <span>Vendors</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="list-vendor.html">
-                                        <i class="fa fa-circle"></i>Vendor List
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="create-vendors.html">
-                                        <i class="fa fa-circle"></i>Create Vendor
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="users"></i>
+                            <span>Vendors</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="list-vendor.html">
+                                    <i class="fa fa-circle"></i>Vendor List
+                                </a>
+                            </li>
+                            <li>
+                                <a href="create-vendors.html">
+                                    <i class="fa fa-circle"></i>Create Vendor
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)">
-                                <i data-feather="chrome"></i>
-                                <span>Localization</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="translations.html"><i class="fa fa-circle"></i>Translations
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="currency-rates.html"><i class="fa fa-circle"></i>Currency Rates
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="taxes.html"><i class="fa fa-circle"></i>Taxes
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)">
+                            <i data-feather="chrome"></i>
+                            <span>Localization</span>
+                            <i class="fa fa-angle-right pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="translations.html"><i class="fa fa-circle"></i>Translations
+                                </a>
+                            </li>
+                            <li>
+                                <a href="currency-rates.html"><i class="fa fa-circle"></i>Currency Rates
+                                </a>
+                            </li>
+                            <li>
+                                <a href="taxes.html"><i class="fa fa-circle"></i>Taxes
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="support-ticket.html"><i
-                                    data-feather="phone"></i><span>Support Ticket</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="support-ticket.html"><i data-feather="phone"></i><span>Support
+                                Ticket</span>
+                        </a>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="reports.html"><i
-                                    data-feather="bar-chart"></i><span>Reports</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="reports.html"><i
+                                data-feather="bar-chart"></i><span>Reports</span>
+                        </a>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="javascript:void(0)"><i
-                                    data-feather="settings"></i><span>Settings</span><i
-                                    class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="profile.html"><i class="fa fa-circle"></i>Profile
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="javascript:void(0)"><i
+                                data-feather="settings"></i><span>Settings</span><i
+                                class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="profile.html"><i class="fa fa-circle"></i>Profile
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="invoice.html"><i
-                                    data-feather="archive"></i><span>Invoice</span></a>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="invoice.html"><i
+                                data-feather="archive"></i><span>Invoice</span></a>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="forgot-password.html">
-                                <i data-feather="key"></i>
-                                <span>Forgot Password</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a class="sidebar-header" href="forgot-password.html">
+                            <i data-feather="key"></i>
+                            <span>Forgot Password</span>
+                        </a>
+                    </li>
 
-                        <li>
-                            <a class="sidebar-header" href="login.html">
-                                <i data-feather="log-in"></i>
-                                <span>Login</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                    <li>
+                        <a class="sidebar-header" href="login.html">
+                            <i data-feather="log-in"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- Page Sidebar Ends-->
+        </div>
+        <!-- Page Sidebar Ends-->
 
-            <!-- Right sidebar Start-->
-            <div class="right-sidebar" id="right_side_bar">
-                <div>
-                    <div class="container p-0">
-                        <div class="modal-header p-l-20 p-r-20">
-                            <div class="col-sm-8 p-0">
-                                <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
-                            </div>
-                            <div class="col-sm-4 text-end p-0">
-                                <i class="me-2" data-feather="settings"></i>
-                            </div>
+        <!-- Right sidebar Start-->
+        <div class="right-sidebar" id="right_side_bar">
+            <div>
+                <div class="container p-0">
+                    <div class="modal-header p-l-20 p-r-20">
+                        <div class="col-sm-8 p-0">
+                            <h6 class="modal-title font-weight-bold">FRIEND LIST</h6>
                         </div>
-                    </div>
-                    <div class="friend-list-search mt-0">
-                        <input type="text" placeholder="search friend">
-                        <i class="fa fa-search"></i>
-                    </div>
-                    <div class="p-l-30 p-r-30 friend-list-name">
-                        <div class="chat-box">
-                            <div class="people-list friend-list">
-                                <ul class="list">
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user.jpg" alt="">
-                                        <div class="status-circle online"></div>
-                                        <div class="about">
-                                            <div class="name">Vincent Porter</div>
-                                            <div class="status">Online</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user1.jpg" alt="">
-                                        <div class="status-circle away"></div>
-                                        <div class="about">
-                                            <div class="name">Ain Chavez</div>
-                                            <div class="status">28 minutes ago</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user2.jpg" alt="">
-                                        <div class="status-circle online"></div>
-                                        <div class="about">
-                                            <div class="name">Kori Thomas</div>
-                                            <div class="status">Online</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg" alt="">
-                                        <div class="status-circle online"></div>
-                                        <div class="about">
-                                            <div class="name">Erica Hughes</div>
-                                            <div class="status">Online</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg" alt="">
-                                        <div class="status-circle offline"></div>
-                                        <div class="about">
-                                            <div class="name">Ginger Johnston</div>
-                                            <div class="status">2 minutes ago</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/user5.jpg" alt="">
-                                        <div class="status-circle away"></div>
-                                        <div class="about">
-                                            <div class="name">Prasanth Anand</div>
-                                            <div class="status">2 hour ago</div>
-                                        </div>
-                                    </li>
-                                    <li class="clearfix">
-                                        <img class="rounded-circle user-image blur-up lazyloaded"
-                                            src="{{asset('public/assets/backend')}}/images/dashboard/designer.jpg"
-                                            alt="">
-                                        <div class="status-circle online"></div>
-                                        <div class="about">
-                                            <div class="name">Hileri Jecno</div>
-                                            <div class="status">Online</div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="col-sm-4 text-end p-0">
+                            <i class="me-2" data-feather="settings"></i>
                         </div>
                     </div>
                 </div>
+                <div class="friend-list-search mt-0">
+                    <input type="text" placeholder="search friend">
+                    <i class="fa fa-search"></i>
+                </div>
+                <div class="p-l-30 p-r-30 friend-list-name">
+                    <div class="chat-box">
+                        <div class="people-list friend-list">
+                            <ul class="list">
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user.jpg" alt="">
+                                    <div class="status-circle online"></div>
+                                    <div class="about">
+                                        <div class="name">Vincent Porter</div>
+                                        <div class="status">Online</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user1.jpg" alt="">
+                                    <div class="status-circle away"></div>
+                                    <div class="about">
+                                        <div class="name">Ain Chavez</div>
+                                        <div class="status">28 minutes ago</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user2.jpg" alt="">
+                                    <div class="status-circle online"></div>
+                                    <div class="about">
+                                        <div class="name">Kori Thomas</div>
+                                        <div class="status">Online</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg" alt="">
+                                    <div class="status-circle online"></div>
+                                    <div class="about">
+                                        <div class="name">Erica Hughes</div>
+                                        <div class="status">Online</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user3.jpg" alt="">
+                                    <div class="status-circle offline"></div>
+                                    <div class="about">
+                                        <div class="name">Ginger Johnston</div>
+                                        <div class="status">2 minutes ago</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/user5.jpg" alt="">
+                                    <div class="status-circle away"></div>
+                                    <div class="about">
+                                        <div class="name">Prasanth Anand</div>
+                                        <div class="status">2 hour ago</div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <img class="rounded-circle user-image blur-up lazyloaded"
+                                        src="{{asset('public/assets/backend')}}/images/dashboard/designer.jpg" alt="">
+                                    <div class="status-circle online"></div>
+                                    <div class="about">
+                                        <div class="name">Hileri Jecno</div>
+                                        <div class="status">Online</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Right sidebar Ends-->
+        </div>
+        <!-- Right sidebar Ends-->
 
-            <div class="page-body">
+        <div class="page-body">
 
-                @yield('page_breadcrumb')
+            @yield('page_breadcrumb')
 
-                @yield('content')
+            @yield('content')
 
-                {{-- <!-- Breadcrumb starts-->
+            {{-- <!-- Breadcrumb starts-->
                 <div class="container-fluid">
                     <div class="page-header">
                         <div class="row">
@@ -664,19 +671,19 @@
                                 <ol class="breadcrumb pull-right">
                                     <li class="breadcrumb-item">
                                         <a href="{{route('admin.dashboard')}}">
-                                            <i data-feather="home"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item active">Dashboard</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Breadcrumb Ends--> --}}
+            <i data-feather="home"></i>
+            </a>
+            </li>
+            <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- Breadcrumb Ends--> --}}
 
-                <!-- Container-fluid starts-->
-                {{-- <div class="container-fluid">
+    <!-- Container-fluid starts-->
+    {{-- <div class="container-fluid">
                     <div class="row">
                         <div class="col-xxl-3 col-md-6 xl-50">
                             <div class="card o-hidden widget-cards">
@@ -974,24 +981,24 @@
 
                     </div>
                 </div> --}}
-                <!-- Container-fluid Ends-->
-            </div>
+    <!-- Container-fluid Ends-->
+    </div>
 
-            <!-- footer start-->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 footer-copyright text-start">
-                            <p class="mb-0">Copyright {{date('Y')}} © EMart All rights reserved.</p>
-                        </div>
-                        <div class="col-md-6 pull-right text-end">
-                            <p class=" mb-0">Develop By Rabiul<i class="fa fa-heart"></i></p>
-                        </div>
-                    </div>
+    <!-- footer start-->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 footer-copyright text-start">
+                    <p class="mb-0">Copyright {{date('Y')}} © EMart All rights reserved.</p>
                 </div>
-            </footer>
-            <!-- footer end-->
+                <div class="col-md-6 pull-right text-end">
+                    <p class=" mb-0">Develop By Rabiul<i class="fa fa-heart"></i></p>
+                </div>
+            </div>
         </div>
+    </footer>
+    <!-- footer end-->
+    </div>
     </div>
 
     <!-- latest jquery-->
@@ -1051,10 +1058,11 @@
     <script src="{{asset('public/assets/backend')}}/js/lazysizes.min.js"></script>
 
     <!-- dataTables js-->
-    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="{{asset('public/assets/backend')}}/js/jquery.dataTables.min.js"></script>
 
     <!--script admin-->
     <script src="{{asset('public/assets/backend')}}/js/sweetalert2.all.js"></script>
+    <script src="{{asset('public/assets/backend')}}/js/notyf.min.js"></script>
 
     <!--script admin-->
     <script src="{{asset('public/assets/backend')}}/js/admin-script.js"></script>
@@ -1065,6 +1073,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        // Create an instance of Notyf
+        var notyf = new Notyf({
+                            duration: 20000,});
+
     </script>
 
     @yield('custom_js')

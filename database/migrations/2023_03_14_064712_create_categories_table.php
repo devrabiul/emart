@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('icon')->nullable();
+            $table->string('picture')->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('priority')->nullable();
             $table->integer('position')->default(0);
