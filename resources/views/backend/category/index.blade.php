@@ -51,8 +51,8 @@
                             <div class="col-md-6 mb-3">
                                 <label class="title-color" for="priority">Priority</label>
 
-                                <select class="form-select" name="priority" id="" required="">
-                                    <option disabled="" selected="">Set Priority</option>
+                                <select class="form-select" name="priority" id="">
+                                    <option value="">Set Priority</option>
                                     @for ($i = 0; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                         @endfor
                                 </select>
@@ -128,7 +128,7 @@
             },
             {
                 "data": function (data, type) {
-                    return `<img class="img-thumbnail w-50" src="/products/` + data.picture +
+                    return `<img class="img-thumbnail w-50" src="` + data.picture +
                         `" alt="` + data.picture + `">`;
                 }
             },
@@ -178,12 +178,12 @@
             processData:false,
             contentType:false,
             beforeSend: function () {
-                
+
             },
             success: function (data) {
-                $('input').val();
+                $('input, select, textarea').val('');
                 $('#datatableTable').DataTable().ajax.reload();
-                notyf.success('Delete successfully.');
+                notyf.success('Add successfully.');
             },
             error: function (request, status, error) {
                 notyf.error(request.responseJSON.message);

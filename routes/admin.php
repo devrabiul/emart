@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
-use App\Http\Controllers\ColorController;
-use App\Http\Controllers\ProductAttributeController;
-use App\Models\ProductAttribute;
+use App\Http\Controllers\Admin\ColorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -51,6 +51,15 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.sub-sub-category.home_status');
         Route::get('/destroy/{id}', 'destroy')->name('admin.sub-sub-category.destroy');
         Route::post('/getcategory', 'getcategory')->name('admin.sub-sub-category.getcategory');
+    });
+
+    Route::controller(BrandController::class)->prefix('admin/brand')->group(function(){
+        Route::get('/', 'index')->name('admin.brand.index');
+        Route::get('/create', 'create')->name('admin.brand.create');
+        Route::post('/store', 'store')->name('admin.brand.store');
+        Route::post('/update', 'update')->name('admin.brand.update');
+        Route::get('/edit/{id}', 'edit')->name('admin.brand.edit');
+        Route::get('/destroy/{id}', 'destroy')->name('admin.brand.destroy');
     });
 
     Route::controller(ProductAttributeController::class)->prefix('admin/attribute')->group(function(){

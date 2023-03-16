@@ -79,6 +79,7 @@
                                 <tr>
                                     <th>SL</th>
                                     <th>Name</th>
+                                    <th>Slug</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -89,6 +90,7 @@
                                 <tr>
                                     <td>{{$key+1}}</td>
                                     <td>{{$item->name}}</td>
+                                    <td>{{$item->slug}}</td>
                                     <td>
                                         <a class="px-1" href="{{route('admin.attribute.edit', $item->id)}}">
                                             <i class="fa fa-edit" title="Edit"></i>

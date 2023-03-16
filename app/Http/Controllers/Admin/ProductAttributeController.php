@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\ProductAttribute;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductAttributeController extends Controller
 {
@@ -36,7 +38,8 @@ class ProductAttributeController extends Controller
             'name'=>'required'
         ]);
         ProductAttribute::insert([
-            'name'=>$request->name,
+            'name'=>Str::title($request->name),
+            'slug'=>Str::slug($request->name),
             'created_at'=>Carbon::now(),
         ]);
         return back();
@@ -55,7 +58,7 @@ class ProductAttributeController extends Controller
      */
     public function edit(string $id)
     {
-        $data = ProductAttribute::where('id', '!=', $id)->first();
+        $data = ProductAttribute::where('id', '=', $id)->first();
         return view('backend.product-attribute.edit',[
             'data'=>$data,
         ]);
@@ -70,7 +73,8 @@ class ProductAttributeController extends Controller
             'name'=>'required',
         ]);
         ProductAttribute::where('id', '=', $request->id)->update([
-            'name'=>$request->name,
+            'name'=>Str::title($request->name),
+            'slug'=>Str::slug($request->name),
         ]);
         return redirect()->route('admin.attribute.index');
     }
@@ -83,6 +87,5 @@ class ProductAttributeController extends Controller
         ProductAttribute::findOrFail($id)->delete();
         return back();
     }
-
 
 }

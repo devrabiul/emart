@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Color;
 use Illuminate\Http\Request;
+
 
 class ColorController extends Controller
 {
@@ -123,15 +125,18 @@ class ColorController extends Controller
                     }
                 }
 
-                $colors .= '<tr><td><label for="" class="control-label">'.$variant_name.'</label></td>'.
-                        '<td><input type="number" name="" value="" min="0" step="0.01" class="form-control" required=""></td>'.
-                        '<td><input type="text" name="" value="'.$p_gen_name.'-'.$variant_name.'" class="form-control" required=""></td>'.
-                        '<td><input type="number" name="" value="1" min="1" max="1000000" step="1" class="form-control" '.
+                $colors .= '<tr><td><label for="" class="control-label">'.$variant_name.'</label>'.
+                            '<input type="hidden" value="'.$variant_name.'" name="variant_name[]"></td>'.
+                        '<td><input type="number" name="variant_price[]" value="" min="0" step="0.01" class="form-control" required=""></td>'.
+                        '<td><input type="text" name="variant_sku[]" value="'.$p_gen_name.'-'.$variant_name.'" class="form-control" required=""></td>'.
+                        '<td><input type="number" name="variant_quantity[]" value="1" min="1" max="1000000" step="1" class="form-control" '.
                         'required=""></td></tr>';
             }
         }
 
-        $html = '<table class="table table-bordered physical_product_show">'.
+        $html = '<input type="hidden" value="'.count($result).'" name="variant_quantity">'.
+                '<h5>Variants Table</h5>'.
+                '<table class="table table-bordered physical_product_show">'.
                 '<thead>'.'<tr><td class="text-center">'.
                 '<label for="" class="control-label">Variant</label>'.
                 '</td>'.
@@ -154,7 +159,6 @@ class ColorController extends Controller
             'html'=>$html,
         ]);
     }
-
 
 
 }

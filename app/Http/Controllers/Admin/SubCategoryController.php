@@ -43,7 +43,7 @@ class SubCategoryController extends Controller
         Category::insert([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
-            'icon'=>$request->icon,
+            'picture'=>$request->picture,
             'parent_id'=>$request->parent_id,
             'position'=>1,
             'priority'=>$request->priority,
@@ -85,7 +85,7 @@ class SubCategoryController extends Controller
         Category::where('id','=', $request->id)->update([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
-            'icon'=>$request->icon,
+            'picture'=>$request->picture,
             'position'=>1,
             'parent_id'=>$request->parent_id,
             'priority'=>$request->priority,

@@ -293,6 +293,7 @@ $currentRouteName = Route::currentRouteName();
                     </li>
 
                     <li class="
+                        {{($currentRouteName == "admin.brand.index"?'active':'')}}
                         {{($currentRouteName == "admin.attribute.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.create"?'active':'')}}
@@ -304,6 +305,13 @@ $currentRouteName = Route::currentRouteName();
                         </a>
 
                         <ul class="sidebar-submenu">
+                            <li>
+                                <a class="{{($currentRouteName == "admin.brand.index" ?'active':'')}}"
+                                    href="{{route('admin.brand.index')}}">
+                                    <i class="fa fa-circle"></i>
+                                    <span>Brands</span>
+                                </a>
+                            </li>
                             <li>
                                 <a class="{{($currentRouteName == "admin.attribute.index" ?'active':'')}}"
                                     href="{{route('admin.attribute.index')}}">
@@ -1075,7 +1083,8 @@ $currentRouteName = Route::currentRouteName();
         });
         // Create an instance of Notyf
         var notyf = new Notyf({
-                            duration: 20000,});
+            // duration: 20000,
+        });
 
     </script>
 

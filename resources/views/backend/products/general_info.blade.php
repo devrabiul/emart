@@ -11,24 +11,23 @@
                         <div class="col-md-6 mb-3">
                             <label class="title-color" for="product_type">Product type</label>
                             <select class="form-select" name="product_type" id="product_type" required>
-                                <option disabled="" selected="">Select A Type</option>
+                                <option value="">Select A Type</option>
                                 <option value="physical">Physical</option>
                                 <option value="digital">Digital</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="title-color" for="brand_id">Brand</label>
-                            <select class="form-select" name="brand_id" id="brand_id" required>
-                                <option disabled="" selected="">Select A Brand</option>
-                                @foreach ($category as $item)
-                                <option value="{{$item->id}}"><span class="color-preview"
-                                        style="background-color:#9966CC;"></span> {{$item->name}}</option>
+                            <select class="form-select" name="brand_id" id="brand_id">
+                                <option value="">Select A Brand</option>
+                                @foreach ($brand as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="title-color" for="">Category</label>
-                            <select class="form-select" name="category_id" id="category_id" required>
+                            <select class="form-select" name="category_id[]" id="category_id" required>
                                 <option disabled="" selected="">Select A Category</option>
                                 @foreach ($category as $item)
                                 <option value="{{$item->id}}"><span class="color-preview"
@@ -39,28 +38,19 @@
                         <div class="col-md-4 mb-3">
                             <label class="title-color" for="parent_id">Sub Category</label>
 
-                            <select class="form-select" name="category_sub_id" id="category_sub_id" required>
-                                <option disabled="" selected="">Select Sub Category</option>
+                            <select class="form-select" name="category_id[]" id="category_sub_id">
+                                <option value="">Select Sub Category</option>
                             </select>
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="title-color">Sub Sub Category Name<span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" name="category_sub_sub_id" id="category_sub_sub_id" required>
-                                <option disabled="" selected="">Select Sub Sub Category</option>
+                            <select class="form-select" name="category_id[]" id="category_sub_sub_id">
+                                <option value="">Select Sub Sub Category</option>
                             </select>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="title-color" for="priority">Priority</label>
-
-                            <select class="form-select" name="priority" id="" required="">
-                                <option disabled="" selected="">Set Priority</option>
-                                @for ($i = 0; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
-                                    @endfor
-                            </select>
-                        </div>
                         <div class="col-md-12 mb-3">
                             <label class="title-color">Product Thumbnail</label>
                             <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>

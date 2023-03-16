@@ -104,7 +104,7 @@
 
 
 
-<form action="{{route('admin.sub-sub-category.store')}}" method="post" enctype="multipart/form-data"
+<form action="{{route('admin.product.store')}}" method="post" enctype="multipart/form-data"
     id="product_create_form">
     @csrf
     <!-- Main Container Start -->
@@ -210,7 +210,7 @@
         let attributesValues = $('#attributes_box').val();
         if (attributesValues != null) {
             // Attributes Html Generator
-            let let_gen_html_for_Attr = '';
+            let let_gen_html_for_Attr = '<h4>Attributes</h4>';
             $.each(attributesValues, function (att_index, att_value) {
                 let_gen_html_for_Attr += `<div class="row"><div class="col-md-3 mb-2">` +
                     `<input type="hidden" name="choice_no[]" value="` + (att_index +1 )+ `">` +

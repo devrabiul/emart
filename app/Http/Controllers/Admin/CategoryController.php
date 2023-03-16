@@ -48,7 +48,7 @@ class CategoryController extends Controller
             'name'=>'required'
         ]);
         Category::insert([
-            'name'=>$request->name,
+            'name'=>Str::title($request->name),
             'slug'=>Str::slug($request->name),
             'picture'=>$request->picture,
             'parent_id'=>0,

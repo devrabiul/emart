@@ -15,17 +15,23 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->integer('category_id')->nullable();
+            $table->json('category_id')->nullable();
             $table->string('type')->nullable();
             $table->string('purchase_price')->nullable();
             $table->string('selling_price')->nullable();
-            $table->integer('subcategory_id')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('discount')->nullable();
+            $table->string('discount_type')->nullable();
+            $table->string('total_quantity')->nullable();
             $table->string('product_sku')->nullable();
             $table->integer('brand_id')->nullable();
-            $table->integer('priority')->nullable();
+            $table->json('attribute')->nullable();
+            $table->json('colors')->nullable();
+            $table->json('variation')->nullable();
             $table->integer('home_status')->nullable();
-            $table->text('image')->nullable();
-            $table->text('variation')->nullable();
+            $table->text('thumbnail')->nullable();
+            $table->json('images')->nullable();
+            $table->json('description')->nullable();
             $table->timestamps();
         });
     }
