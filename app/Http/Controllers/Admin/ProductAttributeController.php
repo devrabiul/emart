@@ -88,4 +88,27 @@ class ProductAttributeController extends Controller
         return back();
     }
 
+
+    public function attributes_box(Request $request)
+    {
+        $attributesHtml = '';
+        if ($request->has('attributesValues') && count($request->attributesValues)>0) {
+            foreach ($request->attributesValues as $key => $value) {
+                $attr_name = ProductAttribute::where('id', '=',$value)->first();
+                $a_serial = $key++;
+                $attributesHtml .= '<div class="row my-2">'.
+                                    '<div class="col-md-3 mb-2">'.
+                                    '<input type="hidden" name="choice_no[]" value="'.$a_serial.'">'.
+                                    '<input type="text" class="form-control" name="choice[]" value="'.$attr_name->name.'" readonly>'.
+                                    '</div><div class="col-lg-9 mb-2">'.
+                                    '<input type="text" class="form-control input_tagsinput" value="'.$request->choice_options.'" name="choice_options_'.$a_serial.'[]" '.
+                                    'placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()"></div></div>';
+            }
+        }
+        return response()->json([
+            'attributesHtml'=>$attributesHtml,
+        ]);
+    }
+
+
 }

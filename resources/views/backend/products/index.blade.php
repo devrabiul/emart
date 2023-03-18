@@ -77,8 +77,12 @@
                                     </td>
 
                                     <td>
-                                        <a class="px-1" href="{{route('admin.product.destroy', $item->id)}}">
+                                        <a class="px-1" href="{{route('admin.product.edit', $item->id)}}">
                                             <i class="fa fa-edit" title="Edit"></i>
+                                        </a>
+
+                                        <a class="px-1" href="{{route('admin.product.show', $item->id)}}">
+                                            <i class="fa fa-eye" title="Edit"></i>
                                         </a>
 
                                         <a class="px-1 text-danger" href="{{route('admin.product.destroy', $item->id)}}">

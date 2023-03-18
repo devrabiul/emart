@@ -28,10 +28,11 @@ return new class extends Migration
             $table->json('attribute')->nullable();
             $table->json('colors')->nullable();
             $table->json('variation')->nullable();
+            $table->json('choice_options')->nullable();
             $table->integer('home_status')->nullable();
             $table->text('thumbnail')->nullable();
             $table->json('images')->nullable();
-            $table->json('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

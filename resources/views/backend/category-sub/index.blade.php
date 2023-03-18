@@ -97,11 +97,8 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header pt-5 pb-1">
+                <div class="card-header pt-4 pb-1">
                     <h4>Sub Category list</h4>
-                    <h4>Total : {{count($data)}}</h4>
-                    {{-- <a class="btn btn-success mt-md-0 mt-2">Add
-                        Category</a> --}}
                 </div>
 
                 <div class="card-body">

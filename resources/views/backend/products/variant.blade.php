@@ -23,7 +23,7 @@
                             <select class="form-control js-example-basic-multiple js-states select2-custom-multiple"
                                 name="attr[]" multiple="multiple" id="attributes_box">
                                 @foreach ($productAttribute as $item)
-                                    <option value="{{$item->name}}">{{$item->name}}</option>
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
                             </select>
                         </div>

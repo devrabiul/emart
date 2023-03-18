@@ -296,6 +296,7 @@ $currentRouteName = Route::currentRouteName();
                         {{($currentRouteName == "admin.brand.index"?'active':'')}}
                         {{($currentRouteName == "admin.attribute.index"?'active':'')}}
                         {{($currentRouteName == "admin.product.index"?'active':'')}}
+                        {{($currentRouteName == "admin.product.edit"?'active':'')}}
                         {{($currentRouteName == "admin.product.create"?'active':'')}}
                         ">
                         <a class="sidebar-header" href="javascript:void(0)">

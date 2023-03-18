@@ -104,8 +104,7 @@
 
 
 
-<form action="{{route('admin.product.store')}}" method="post" enctype="multipart/form-data"
-    id="product_create_form">
+<form action="{{route('admin.product.store')}}" method="post" enctype="multipart/form-data" id="product_create_form">
     @csrf
     <!-- Main Container Start -->
     <div class="container-fluid">
@@ -120,8 +119,10 @@
                                 <input type="text" class="form-control" name="product_name" id="product_name">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="title-color" for="">Product SKU</label>
-                                <input type="text" name="product_sku" class="form-control" placeholder="Product SKU">
+                                <label class="title-color" for="">Product SKU <span class="generateSKU"
+                                        onclick="generateSKU()">Generate SKU</span> </label>
+                                <input type="text" name="product_sku" class="form-control" id="product_sku"
+                                    placeholder="Product SKU" required>
                             </div>
 
                             <div class="col-md-12 mb-3">
@@ -155,26 +156,45 @@
 <!--script admin-->
 <script src="{{asset('public/assets/backend')}}/js/bootstrap-tagsinput.js"></script>
 
+<!-- Sub Category Data || Start-->
 <script>
     $('#category_id').on('change', function () {
-        updateFromController();
-
         let category = $('#category_id').val();
-
         $.ajax({
-            url: `{{route('admin.sub-sub-category.getcategory')}}`,
+            url: `{{route('admin.sub-category.getSubCategory')}}`,
             method: "POST",
             type: "",
             data: {
                 'category': category,
             },
             success: function (data) {
-                $('#parent_id').html(data.subCategory);
+                $('#category_sub_id').html(data.subCategory);
             },
         });
     });
-</script>
 
+</script>
+<!-- Sub Category Data || End-->
+
+<!-- Sub Sub Category Data || Start-->
+<script>
+    $('#category_sub_id').on('change', function () {
+        let category = $('#category_sub_id').val();
+        $.ajax({
+            url: `{{route('admin.sub-sub-category.getSubSubCategory')}}`,
+            method: "POST",
+            type: "",
+            data: {
+                'category': category,
+            },
+            success: function (data) {
+                $('#category_sub_sub_id').html(data.subCategory);
+            },
+        });
+    });
+
+</script>
+<!-- Sub Sub Category Data || End-->
 <script>
     $('.select2-custom-multiple').select2({
         width: 'resolve'
@@ -199,31 +219,63 @@
         return "<span class='color-preview' style='background-color:" + colorCode + ";'></span>" + state
             .text;
     };
+
+</script>
+
+<script>
+    // Color And Type Status || Start
+    function colorAndtypenull()
+    {
+        if ($('#color_box').val() == null && $('#attributes_box').val() == null) {
+            $('#sku_comb_result').html("");
+            $('#attributes_area').html("");
+        }
+    }
+    // Color And Type Status || End
 </script>
 
 <script>
 
-    $('#attributes_box').on('change', function () {
-
-        updateFromController();
-
+    function attributes_boxCode()
+    {
         let attributesValues = $('#attributes_box').val();
-        if (attributesValues != null) {
-            // Attributes Html Generator
-            let let_gen_html_for_Attr = '<h4>Attributes</h4>';
-            $.each(attributesValues, function (att_index, att_value) {
-                let_gen_html_for_Attr += `<div class="row"><div class="col-md-3 mb-2">` +
-                    `<input type="hidden" name="choice_no[]" value="` + (att_index +1 )+ `">` +
-                    `<input type="text" class="form-control" name="choice[]" value="${att_value}" placeholder="Choice Title" readonly>` +
-                    `</div><div class="col-lg-9 mb-2">` +
-                    `<input type="text" class="form-control input_tagsinput" name="choice_options_${att_index+1}[]" placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()">` +
-                    `</div></div>`;
-            });
-            $('#attributes_area').html(let_gen_html_for_Attr);
-            $("input[data-role=tagsinput]").tagsinput();
-        } else {
+        if (attributesValues == null) {
             $('#attributes_area').html("");
+        }else{
+            $.ajax({
+                type: "POST",
+                url: `{{ route('admin.attribute.attributes_box') }}`,
+                data: {
+                    'attributesValues':attributesValues,
+                },
+                success: function (data) {
+                    $('#attributes_area').html(data.attributesHtml);
+                    $("input[data-role=tagsinput]").tagsinput();
+                    updateFromController();
+                }
+            });
         }
+    }
+
+    $('#attributes_box').on('change', function () {
+        attributes_boxCode();
+        // let attributesValues = $('#attributes_box').val();
+        // if (attributesValues != null) {
+        //     // Attributes Html Generator
+        //     let let_gen_html_for_Attr = '<h4>Attributes</h4>';
+        //     $.each(attributesValues, function (att_index, att_value) {
+        //         let_gen_html_for_Attr += `<div class="row"><div class="col-md-3 mb-2">` +
+        //             `<input type="hidden" name="choice_no[]" value="` + (att_index + 1) + `">` +
+        //             `<input type="text" class="form-control" name="choice[]" value="${att_value}" placeholder="Choice Title" readonly>` +
+        //             `</div><div class="col-lg-9 mb-2">` +
+        //             `<input type="text" class="form-control input_tagsinput" name="choice_options_${att_index+1}[]" placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()">` +
+        //             `</div></div>`;
+        //     });
+        //     $('#attributes_area').html(let_gen_html_for_Attr);
+            // $("input[data-role=tagsinput]").tagsinput();
+        // } else {
+        //     $('#attributes_area').html("");
+        // }
     });
 
     $('#color_box, #product_name').on('change', function () {
@@ -231,15 +283,30 @@
     });
 
     function updateFromController() {
+        colorAndtypenull();
         $.ajax({
             type: "POST",
             url: `{{ route('admin.product.updateFromController') }}`,
             data: $('#product_create_form').serialize(),
             success: function (data) {
                 $('#sku_comb_result').html(data.html);
+                $('#attributes_area').html(data.attributesHtml);
             }
         });
     }
+
 </script>
 
+<script>
+    // Generate SKU Code || Start
+    function generateSKU() {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let gencode = '';
+        for (let i = 0; i < 12; i++) {
+            gencode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        $('#product_sku').val(gencode);
+    }
+    // Generate SKU Code || End
+</script>
 @endsection

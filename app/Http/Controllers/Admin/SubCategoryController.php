@@ -109,4 +109,19 @@ class SubCategoryController extends Controller
         ]);
         return back();
     }
+
+
+    public function getSubCategory(Request $request)
+    {
+        $category = Category::where('parent_id', '=', $request->category)->get();
+        $subCategory = '<option disabled="" selected="">Select Sub Category</option>';
+        foreach ($category as $value) {
+            $subCategory .= '<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        return response()->json([
+            'subCategory'=>$subCategory,
+        ]);
+    }
 }
+
+

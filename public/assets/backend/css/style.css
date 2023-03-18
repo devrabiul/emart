@@ -14598,24 +14598,35 @@ body.rtl .table-category tbody tr td:first-child {
 .table-responsive {
     overflow-x: unset !important;
 }
+
 /* Notyf Toast */
 .notyf__toast {
     max-width: 600px !important;
 }
-.notyf__ripple{
+
+.notyf__ripple {
     width: 600px !important;
 }
-.home_status{
+
+.home_status {
     background-color: transparent;
     border: none;
     font-size: 25px;
     padding: 0;
     margin: 0;
 }
-.home_status .fa-toggle-on{
+
+.home_status .fa-toggle-on {
     color: #00A36C;
 }
-.home_status .fa-toggle-off{
+
+.home_status .fa-toggle-off {
     color: #c64e40;
 }
+
 /* Notyf Toast */
+.generateSKU {
+    color: blue;
+    cursor: pointer;
+    user-select: none;
+}

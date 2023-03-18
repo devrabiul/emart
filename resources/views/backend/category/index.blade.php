@@ -78,7 +78,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header pt-5 pb-1">
+                <div class="card-header pt-4 pb-1">
                     <h4>Category list</h4>
                 </div>
                 <div class="card-body">

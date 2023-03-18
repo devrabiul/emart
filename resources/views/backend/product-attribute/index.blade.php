@@ -34,7 +34,7 @@
 <!-- Main Container Start -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header pt-4 pb-1">
                     <h4>Add Products Attribute</h4>
@@ -45,8 +45,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label class="title-color">Attribute Name<span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" placeholder="Attribute"
-                                    required="">
+                                <input type="text" name="name" class="form-control" placeholder="Attribute" required="">
                             </div>
 
                             <div class="col-md-12 mb-3 text-end">
@@ -58,18 +57,11 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-8">
             <div class="card">
-                <div class="card-header pt-5 pb-1">
+                <div class="card-header pt-4 pb-1">
                     <h4>Attribute list</h4>
-                    <h4>Total : </h4>
-                    {{-- <a class="btn btn-success mt-md-0 mt-2">Add
-                        Category</a> --}}
                 </div>
 
                 <div class="card-body">
@@ -96,7 +88,8 @@
                                             <i class="fa fa-edit" title="Edit"></i>
                                         </a>
 
-                                        <a class="px-1 text-danger" href="{{route('admin.attribute.destroy', $item->id)}}">
+                                        <a class="px-1 text-danger"
+                                            href="{{route('admin.attribute.destroy', $item->id)}}">
                                             <i class="fa fa-trash" title="Delete"></i>
                                         </a>
                                     </td>

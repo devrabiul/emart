@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::get('/edit/{id}', 'edit')->name('admin.sub-category.edit');
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.sub-category.home_status');
         Route::get('/destroy/{id}', 'destroy')->name('admin.sub-category.destroy');
+        Route::post('/getcategory', 'getSubCategory')->name('admin.sub-category.getSubCategory');
     });
 
     Route::controller(SubSubCategoryController::class)->prefix('admin/sub-sub-category')->group(function(){
@@ -51,7 +52,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::get('/edit/{id}', 'edit')->name('admin.sub-sub-category.edit');
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.sub-sub-category.home_status');
         Route::get('/destroy/{id}', 'destroy')->name('admin.sub-sub-category.destroy');
-        Route::post('/getcategory', 'getcategory')->name('admin.sub-sub-category.getcategory');
+        Route::post('/getcategory', 'getSubSubCategory')->name('admin.sub-sub-category.getSubSubCategory');
     });
 
     Route::controller(BrandController::class)->prefix('admin/brand')->group(function(){
@@ -70,6 +71,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::post('/update', 'update')->name('admin.attribute.update');
         Route::get('/edit/{id}', 'edit')->name('admin.attribute.edit');
         Route::get('/destroy/{id}', 'destroy')->name('admin.attribute.destroy');
+        Route::post('/attributes_box', 'attributes_box')->name('admin.attribute.attributes_box');
     });
 
     Route::controller(ProductController::class)->prefix('admin/products')->group(function(){
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'auth'] , function(){
         Route::post('/store', 'store')->name('admin.product.store');
         Route::post('/update', 'update')->name('admin.product.update');
         Route::get('/edit/{id}', 'edit')->name('admin.product.edit');
+        Route::get('/show/{id}', 'show')->name('admin.product.show');
         Route::get('/home_status/{id}/{status}', 'home_status')->name('admin.product.home_status');
         Route::get('/destroy/{id}', 'destroy')->name('admin.product.destroy');
         Route::post('/getcategory', 'getcategory')->name('admin.product.getcategory');

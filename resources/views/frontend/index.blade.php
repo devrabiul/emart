@@ -287,9 +287,8 @@
                             <li class="onhover-dropdown mobile-account"> <i class="fa fa-user" aria-hidden="true"></i>
                                 @if (Route::has('login'))
 
-                                My Account
                                 @auth
-                                <a href="{{ url('/home') }}">My Account</a>
+                                    <a href="{{ url('/home') }}">Hi, {{Auth::user()->name}}</a>
                                 @else
                                 <ul class="onhover-show-div">
 
@@ -2894,31 +2893,6 @@
     </div>
     <!-- cart end -->
 
-
-    <!-- theme setting -->
-    <div class="theme-settings">
-        <ul>
-            <li class="demo-li">
-                <a href="javascript:void(0)" onclick="openSetting()">
-                    <div class="setting-sidebar" id="setting-icon">
-                        <h5>50+ <br>demo</h5>
-                    </div>
-                </a>
-            </li>
-            <li class="demo-li">
-                <div class="backend-btn"><a target="_blank" href="../back-end/index.html">Admin</a></div>
-            </li>
-            <li>
-                <div class="dark-btn">Dark</div>
-            </li>
-            <li>
-                <div class="rtl-btn">RTL</div>
-            </li>
-            <li class="input-picker">
-                <input id="ColorPicker1" type="color" value="#ff4c3b" name="Background">
-            </li>
-        </ul>
-    </div>
 
     <div class="scroll-setting-box">
         <div id="setting_box" class="setting-box">

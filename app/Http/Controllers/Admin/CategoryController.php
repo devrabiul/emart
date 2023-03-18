@@ -106,6 +106,7 @@ class CategoryController extends Controller
         ]);
         return back();
     }
+
     public function status_change(Request $request)
     {
         $category = Category::where('id', '=', $request->id)->first();
@@ -124,4 +125,5 @@ class CategoryController extends Controller
             'success'=>'success',
         ]);
     }
+
 }
