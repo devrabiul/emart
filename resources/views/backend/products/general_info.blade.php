@@ -8,7 +8,6 @@
                     <hr>
 
                     <div class="row">
-
                         <div class="col-md-4 mb-3">
                             <label class="title-color" for="">Category</label>
                             <select class="form-select" name="category_id[]" id="category_id" required>
@@ -89,14 +88,24 @@
                             <label class="title-color">Product Thumbnail</label>
                             <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>
                             <div class="custom-file text-left">
-                                <input type="file" name="thumbnail" class="form-control">
-
+                                <input type="file" name="thumbnail" class="form-control" id="product_thumbnail" onchange="document.getElementById('thumbnail_view').src = window.URL.createObjectURL(this.files[0])">
                             </div>
                         </div>
                         <div class="col-md-12 mb-3 text-end">
                             <button type="reset" class="btn btn-sm btn-danger">Reset</button>
                             <button type="submit" class="btn btn-sm btn-success">Submit</button>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="title-color">Thumbnail Preview</label>
+                            <div class="img_box">
+                                <img id="thumbnail_view" class="img-fluid"
+                                    src="{{asset('storage/app/def.png')}}" alt="">
+                                <div class="overly">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+    
                     </div>
                 </div>
             </div>

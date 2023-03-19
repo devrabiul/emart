@@ -66,6 +66,31 @@
         border: 1px solid #00a36c;
     }
 
+    .img_box {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .overly {
+        cursor: pointer;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #cccccce3;
+        height: -webkit-fill-available;
+        justify-content: center;
+        align-items: center;
+        font-size: 80px;
+        color: #fff;
+        display: none;
+    }
+
+    .img_box:hover .overly {
+        display: flex;
+        transition: 1s ease-in;
+    }
+
 </style>
 @endsection
 
@@ -174,16 +199,34 @@
                                     </select>
                                 </div>
 
-                                {{-- {{$data->choice_options}} --}}
-                                @foreach (json_decode($data->choice_options) as $item)
-                                    @foreach ($item->choice_options as $value)
-                                        <input type="text" class="form-control input_tagsinput" value="{{$value}}" name="" placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()">
+                                <div class="col-md-12 mb-3">
+                                    <div class="attributes_area" id="attributes_area">
+                                        {{-- {{$data->choice_options}} --}}
+                                        @foreach (json_decode($data->choice_options) as $serial =>  $item)
+                                        @foreach ($item->choice_options as $value)
+                                        {{-- <input type="text" class="form-control input_tagsinput" value="{{$value}}" name=""
+                                        placeholder="Enter choice values" data-role="tagsinput"
+                                        onchange="updateFromController()"> --}}
+                                        <div class="row my-2">
+                                            <div class="col-md-3 mb-2">
+                                                <input type="hidden" name="choice_no[]" value="{{$serial}}">
+                                                <input type="text" class="form-control" name="choice[]"
+                                                    value="{{$item->name}}" readonly>
+                                            </div>
+                                            <div class="col-lg-9 mb-2">
+                                                <input type="text" class="form-control input_tagsinput"
+                                                    value="{{$value}}" name="choice_options_{{$serial}}[]"
+                                                    placeholder="Enter choice values" data-role="tagsinput"
+                                                    onchange="updateFromController()">
+                                            </div>
+                                        </div>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
+                                    </div>
+                                </div>
 
                                 <div class="col-md-12 mb-3">
-                                    {{-- <input type="text" value="'.count($result).'" name="variant_quantity"> --}}
-                                    <h5>Variants Table</h5>
+                                    <div class="col-12 form-group sku_comb_result" id="sku_comb_result"></div>
                                     <table class="table table-bordered physical_product_show">
                                         <thead>
                                             <tr>
@@ -202,7 +245,6 @@
                                                 <td class="text-center">
                                                     <label for="" class="control-label">Image</label>
                                                 </td>
-                                                <td>Action</td>
                                             </tr>
                                         </thead>
                                         <tbody id="generateHtmlTable">
@@ -216,41 +258,30 @@
                                                         name="variant_color[]">
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="variant_price[]" value="{{$item->variant_price}}" min="0"
-                                                        step="0.01" class="form-control" required="">
+                                                    <input type="number" name="variant_price[]"
+                                                        value="{{$item->variant_price}}" min="0" step="0.01"
+                                                        class="form-control" required="">
                                                 </td>
                                                 <td>
                                                     <input type="text" name="variant_sku[]"
-                                                        value="{{$item->variant_sku}}" class="form-control"
-                                                        required="">
+                                                        value="{{$item->variant_sku}}" class="form-control" required="">
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="variant_quantity[]" value="{{$item->variant_quantity}}" min="1"
-                                                        max="1000000" step="1" class="form-control" required="">
+                                                    <input type="number" name="variant_quantity[]"
+                                                        value="{{$item->variant_quantity}}" min="1" max="1000000"
+                                                        step="1" class="form-control" required="">
                                                 </td>
                                                 <td>
                                                     <input type="file" name="variant_img[]" class="form-control"
                                                         required="">
-                                                        <div>
-                                                            <img src="{{url($item->variant_img)}}" alt="" width="25">
-                                                        </div>
-                                                </td>
-                                                <td>
-                                                    <span class="btn"><i class="fa fa-trash"></i></span>
+                                                    {{-- <div>
+                                                        <img src="{{url($item->variant_img)}}" alt="" width="25">
+                                                    </div> --}}
                                                 </td>
                                             </tr>
-
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="attributes_area" id="attributes_area"></div>
-
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <div class="col-12 form-group sku_comb_result" id="sku_comb_result">
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -374,19 +405,30 @@
                                     </select>
                                 </div>
 
-
                                 <div class="col-md-4 mb-3">
                                     <label class="title-color">Product Thumbnail</label>
                                     <span class=""><span class="text-danger">*</span> ( Ratio 1:1 )</span>
                                     <div class="custom-file text-left">
-                                        <input type="file" name="thumbnail" class="form-control">
-
+                                        <input type="file" name="thumbnail" class="form-control" id="product_thumbnail"
+                                            onchange="document.getElementById('thumbnail_view').src = window.URL.createObjectURL(this.files[0])">
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3 text-end">
                                     <button type="reset" class="btn btn-sm btn-danger">Reset</button>
                                     <button type="submit" class="btn btn-sm btn-success">Submit</button>
                                 </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="title-color">Thumbnail Preview</label>
+                                    <div class="img_box">
+                                        <img id="thumbnail_view" class="img-fluid"
+                                            src="{{asset('storage/app/public')}}/{{($data->thumbnail != ''?$data->thumbnail:'def.png')}}"
+                                            alt="">
+                                        <div class="overly">
+                                            <i class="fa fa-upload" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -411,12 +453,10 @@
 <!--script admin-->
 <script src="{{asset('public/assets/backend')}}/js/bootstrap-tagsinput.js"></script>
 
-<!-- Sub Category Data || Start-->
 <script>
+    // Sub Category Data || Start
     $('#category_id').on('change', function () {
         let category = $('#category_id').val();
-        $('#category_sub_sub_id').html('<option value="">Select Sub Sub Category</option>');
-
         $.ajax({
             url: `{{route('admin.sub-category.getSubCategory')}}`,
             method: "POST",
@@ -429,12 +469,9 @@
             },
         });
     });
+    // Sub Category Data || End
 
-</script>
-<!-- Sub Category Data || End-->
-
-<!-- Sub Sub Category Data || Start-->
-<script>
+    // Sub Sub Category Data || Start
     $('#category_sub_id').on('change', function () {
         let category = $('#category_sub_id').val();
         $.ajax({
@@ -449,9 +486,56 @@
             },
         });
     });
+    // Sub Sub Category Data || End
+
+    // Color And Type Status || Start
+    function colorAndtypenull() {
+        if ($('#color_box').val() == null && $('#attributes_box').val() == null) {
+            $('#sku_comb_result').html("");
+            $('#attributes_area').html("");
+        }
+    }
+    // Color And Type Status || End
+
+    // Generate SKU Code || Start
+    function generateSKU() {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let gencode = '';
+        for (let i = 0; i < 12; i++) {
+            gencode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        $('#product_sku').val(gencode);
+    }
+    // Generate SKU Code || End
+
+    // Generate Variants Quantity || Start
+    function updateVariants_quantity() {
+        var variants_quantity = 0;
+        $('.variants_quantity').each(function () {
+            variants_quantity += parseFloat($(this).val()); // Or this.innerHTML, this.innerText
+        });
+        $('#total_quantity').val(variants_quantity);
+    }
+    // Generate Variants Quantity || End
+
+    // Image Upload Activites || Start
+    $('.img_box').click(() => {
+        $('#product_thumbnail').click();
+    });
+    // Image Upload Activites || End
 
 </script>
-<!-- Sub Sub Category Data || End-->
+
+<script>
+    jQuery(window).load(function (event) {
+        // attributes_boxCode();
+        updateFromController();
+    });
+
+</script>
+
+
+
 <script>
     $('.select2-custom-multiple').select2({
         width: 'resolve'
@@ -480,17 +564,16 @@
 </script>
 
 <script>
-    function attributes_boxCode()
-    {
+    function attributes_boxCode() {
         let attributesValues = $('#attributes_box').val();
         if (attributesValues == null) {
             $('#attributes_area').html("");
-        }else{
+        } else {
             $.ajax({
                 type: "POST",
                 url: `{{ route('admin.attribute.attributes_box') }}`,
                 data: {
-                    'attributesValues':attributesValues,
+                    'attributesValues': attributesValues,
                 },
                 success: function (data) {
                     $('#attributes_area').html(data.attributesHtml);
@@ -511,18 +594,6 @@
 
 
     function updateFromController() {
-        $.ajax({
-            type: "POST",
-            url: `{{ route('admin.product.updateFromController') }}`,
-            data: $('#product_create_form').serialize(),
-            success: function (data) {
-                $('#sku_comb_result').html(data.html);
-                $('#attributes_area').html(data.attributesHtml);
-            }
-        });
-    }
-
-    function updateFromController() {
         colorAndtypenull();
         $.ajax({
             type: "POST",
@@ -537,36 +608,5 @@
 
 </script>
 
-<script>
-    // Color And Type Status || Start
-    function colorAndtypenull()
-    {
-        if ($('#color_box').val() == null && $('#attributes_box').val() == null) {
-            $('#sku_comb_result').html("");
-            $('#attributes_area').html("");
-        }
-    }
-    // Color And Type Status || End
-</script>
-
-<script>
-    // Generate SKU Code || Start
-    function generateSKU() {
-        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let gencode = '';
-        for (let i = 0; i < 12; i++) {
-            gencode += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        $('#product_sku').val(gencode);
-    }
-    // Generate SKU Code || End
-</script>
-
-<script>
-    jQuery(window).load(function(event) {
-        attributes_boxCode();
-        updateFromController();
-    });
-</script>
 
 @endsection

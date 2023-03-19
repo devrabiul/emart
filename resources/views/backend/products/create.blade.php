@@ -66,6 +66,28 @@
         border: 1px solid #00a36c;
     }
 
+    .img_box {
+        position: relative;
+        overflow: hidden;
+    }
+    .overly {
+        cursor: pointer;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #cccccce3;
+        height: -webkit-fill-available;
+        justify-content: center;
+        align-items: center;
+        font-size: 80px;
+        color: #fff;
+        display: none;
+    }
+    .img_box:hover .overly {
+        display: flex;
+        transition: 1s ease-in;
+    }
 </style>
 @endsection
 
@@ -156,8 +178,9 @@
 <!--script admin-->
 <script src="{{asset('public/assets/backend')}}/js/bootstrap-tagsinput.js"></script>
 
-<!-- Sub Category Data || Start-->
+
 <script>
+    // Sub Category Data || Start
     $('#category_id').on('change', function () {
         let category = $('#category_id').val();
         $.ajax({
@@ -172,12 +195,9 @@
             },
         });
     });
+    // Sub Category Data || End
 
-</script>
-<!-- Sub Category Data || End-->
-
-<!-- Sub Sub Category Data || Start-->
-<script>
+    // Sub Sub Category Data || Start
     $('#category_sub_id').on('change', function () {
         let category = $('#category_sub_id').val();
         $.ajax({
@@ -192,9 +212,47 @@
             },
         });
     });
+    // Sub Sub Category Data || End
 
+    // Color And Type Status || Start
+    function colorAndtypenull()
+    {
+        if ($('#color_box').val() == null && $('#attributes_box').val() == null) {
+            $('#sku_comb_result').html("");
+            $('#attributes_area').html("");
+        }
+    }
+    // Color And Type Status || End
+
+    // Generate SKU Code || Start
+    function generateSKU() {
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let gencode = '';
+        for (let i = 0; i < 12; i++) {
+            gencode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        $('#product_sku').val(gencode);
+    }
+    // Generate SKU Code || End
+
+    // Generate Variants Quantity || Start
+    function updateVariants_quantity() {
+        var variants_quantity = 0;
+        $('.variants_quantity').each(function(){
+            variants_quantity += parseFloat($(this).val());  // Or this.innerHTML, this.innerText
+        });
+        $('#total_quantity').val(variants_quantity);
+    }
+    // Generate Variants Quantity || End
+
+    // Image Upload Activites || Start
+    $('.img_box').click(() => {
+        $('#product_thumbnail').click();
+    });
+    // Image Upload Activites || End
 </script>
-<!-- Sub Sub Category Data || End-->
+
+
 <script>
     $('.select2-custom-multiple').select2({
         width: 'resolve'
@@ -222,17 +280,6 @@
 
 </script>
 
-<script>
-    // Color And Type Status || Start
-    function colorAndtypenull()
-    {
-        if ($('#color_box').val() == null && $('#attributes_box').val() == null) {
-            $('#sku_comb_result').html("");
-            $('#attributes_area').html("");
-        }
-    }
-    // Color And Type Status || End
-</script>
 
 <script>
 
@@ -259,23 +306,6 @@
 
     $('#attributes_box').on('change', function () {
         attributes_boxCode();
-        // let attributesValues = $('#attributes_box').val();
-        // if (attributesValues != null) {
-        //     // Attributes Html Generator
-        //     let let_gen_html_for_Attr = '<h4>Attributes</h4>';
-        //     $.each(attributesValues, function (att_index, att_value) {
-        //         let_gen_html_for_Attr += `<div class="row"><div class="col-md-3 mb-2">` +
-        //             `<input type="hidden" name="choice_no[]" value="` + (att_index + 1) + `">` +
-        //             `<input type="text" class="form-control" name="choice[]" value="${att_value}" placeholder="Choice Title" readonly>` +
-        //             `</div><div class="col-lg-9 mb-2">` +
-        //             `<input type="text" class="form-control input_tagsinput" name="choice_options_${att_index+1}[]" placeholder="Enter choice values" data-role="tagsinput" onchange="updateFromController()">` +
-        //             `</div></div>`;
-        //     });
-        //     $('#attributes_area').html(let_gen_html_for_Attr);
-            // $("input[data-role=tagsinput]").tagsinput();
-        // } else {
-        //     $('#attributes_area').html("");
-        // }
     });
 
     $('#color_box, #product_name').on('change', function () {
@@ -295,31 +325,7 @@
             }
         });
     }
-
 </script>
 
-<script>
-    // Generate SKU Code || Start
-    function generateSKU() {
-        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let gencode = '';
-        for (let i = 0; i < 12; i++) {
-            gencode += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        $('#product_sku').val(gencode);
-    }
-    // Generate SKU Code || End
-</script>
 
-<script>
-    // Generate SKU Code || Start
-    function updateVariants_quantity() {
-        var variants_quantity = 0;
-        $('.variants_quantity').each(function(){
-            variants_quantity += parseFloat($(this).val());  // Or this.innerHTML, this.innerText
-        });
-        $('#total_quantity').val(variants_quantity);
-    }
-    // Generate SKU Code || End
-</script>
 @endsection
