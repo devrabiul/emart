@@ -291,6 +291,7 @@
             success: function (data) {
                 $('#sku_comb_result').html(data.html);
                 $('#attributes_area').html(data.attributesHtml);
+                updateVariants_quantity();
             }
         });
     }
@@ -306,6 +307,18 @@
             gencode += characters.charAt(Math.floor(Math.random() * characters.length));
         }
         $('#product_sku').val(gencode);
+    }
+    // Generate SKU Code || End
+</script>
+
+<script>
+    // Generate SKU Code || Start
+    function updateVariants_quantity() {
+        var variants_quantity = 0;
+        $('.variants_quantity').each(function(){
+            variants_quantity += parseFloat($(this).val());  // Or this.innerHTML, this.innerText
+        });
+        $('#total_quantity').val(variants_quantity);
     }
     // Generate SKU Code || End
 </script>

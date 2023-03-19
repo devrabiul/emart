@@ -247,7 +247,9 @@ $currentRouteName = Route::currentRouteName();
                     </div>
                 </div> --}}
                 <ul class="sidebar-menu">
-                    <li>
+                    <li class="
+                    {{($currentRouteName == "admin.dashboard"?'active':'')}}
+                    ">
                         <a class="sidebar-header" href="{{route('admin.dashboard')}}">
                             <i data-feather="home"></i>
                             <span>Dashboard</span>

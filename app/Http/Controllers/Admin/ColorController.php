@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Color;
 use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 
 class ColorController extends Controller
 {
@@ -168,9 +168,9 @@ class ColorController extends Controller
                             '<input type="hidden" value="'.$variant_name_gen.'" name="variant_name[]">'.
                             '<input type="hidden" value="'.$variant_color_code.'" name="variant_color[]"></td>'.
                         '<td><input type="number" name="variant_price[]" value="" min="0" step="0.01" class="form-control" required=""></td>'.
-                        '<td><input type="text" name="variant_sku[]" value="'.$p_gen_name.$variant_name_gen.'" class="form-control" required=""></td>'.
-                        '<td><input type="number" name="variant_quantity[]" value="1" min="1" max="1000000" step="1" class="form-control" '.
-                        'required=""></td>'.
+                        '<td><input type="text" name="variant_sku[]" value="'.Str::upper($p_gen_name.$variant_name_gen).'" class="form-control" required=""></td>'.
+                        '<td><input type="number" name="variant_quantity[]" value="1" min="1" max="1000000" step="1" class="form-control variants_quantity" '.
+                        'required="" onchange="updateVariants_quantity()"></td>'.
                         '<td><input type="file" name="variant_img[]" class="form-control" ></td></tr>';
         }
 

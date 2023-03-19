@@ -61,7 +61,7 @@
                                     <td>{{$key+1}}</td>
 
                                     <td>
-                                        <img src="{{asset('public/assets/backend')}}/images/dashboard/product/1.jpg" data-field="image" alt="">
+                                        <img src="{{asset('storage/app/public')}}/{{$item->thumbnail}}" data-field="image" alt="">
                                     </td>
 
                                     <td>{{$item->name}}</td>

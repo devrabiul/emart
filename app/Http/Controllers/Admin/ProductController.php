@@ -107,9 +107,9 @@ class ProductController extends Controller
         {
             $imageName = Str::slug($request->product_name).'-thumbnail-'.time().'.'.$request->thumbnail->extension();
             ImageUploadCustom::upload('product', $imageName , $request->thumbnail, 200);
-            $location = 'storage/app/public/product/'.$imageName;
+            $location = 'product/'.$imageName;
         }else{
-            $location = 'storage/app/def.png';
+            $location = 'product/def.png';
         }
 
         $data = [
@@ -240,9 +240,9 @@ class ProductController extends Controller
         {
             $imageName = Str::slug($request->product_name).'-thumbnail-'.time().'.'.$request->thumbnail->extension();
             ImageUploadCustom::upload('product', $imageName , $request->thumbnail, 200);
-            $location = 'storage/app/public/product/'.$imageName;
+            $location = 'product/'.$imageName;
         }else{
-            $location = 'storage/app/def.png';
+            $location = 'product/def.png';
         }
 
         Product::where('id', '=', $request->id)->update([

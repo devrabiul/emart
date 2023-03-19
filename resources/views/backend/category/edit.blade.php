@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('page_title', 'Category')
+@section('page_title', 'Edit Category')
 
 @section('content')
 
@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="page-header-left">
-                    <h3>Category
-                        <small>Category Setup</small>
+                    <h3>Edit
+                        <small>Edit Category</small>
                     </h3>
                 </div>
             </div>
@@ -33,20 +33,21 @@
 
 <!-- Main Container Start -->
 <div class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header pt-4 pb-1">
-                    <h4>Add Category</h4>
+                    <h4>Edit Category</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data"
+                    <form action="{{route('admin.category.update')}}" method="post" enctype="multipart/form-data"
                         id="ajaxFormStore">
                         @csrf
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label class="title-color">Category Name<span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" placeholder="New Category"
+                                <input type="hidden" name="id" class="form-control" value="{{$data->id}}" required="">
+                                <input type="text" name="name" class="form-control" value="{{$data->name}}" placeholder="Category Name"
                                     required="">
                             </div>
                             <div class="col-md-12 mb-3">
@@ -54,8 +55,9 @@
 
                                 <select class="form-select" name="priority" id="">
                                     <option value="">Set Priority</option>
-                                    @for ($i = 0; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
-                                        @endfor
+                                    @for ($i = 0; $i <= 10; $i++)
+                                        <option value="{{$i}}" {{($data->priority == $i ?'selected':'')}}>{{$i}}</option>
+                                    @endfor
                                 </select>
                             </div>
                             <div class="col-md-12 mb-3">
@@ -76,30 +78,6 @@
             </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header pt-4 pb-1">
-                    <h4>Category list</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive table-desi">
-                        <table class="table all-package table-category " id="datatableTable">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Priority</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- Main Container End -->

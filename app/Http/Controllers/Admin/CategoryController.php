@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\CustomClass\ImageUploadCustom;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Carbon\Carbon;
@@ -47,15 +48,25 @@ class CategoryController extends Controller
         $request->validate([
             'name'=>'required'
         ]);
-        Category::insert([
+
+        $id = Category::insertGetId([
             'name'=>Str::title($request->name),
             'slug'=>Str::slug($request->name),
-            'picture'=>$request->picture,
             'parent_id'=>0,
             'position'=>0,
+            'home_status'=>1,
             'priority'=>$request->priority,
             'created_at'=>Carbon::now(),
         ]);
+
+        if ($request->picture != '') {
+            $imgname = Str::slug($request->name).'-'.time().'.'.$request->picture->getClientOriginalExtension();
+            ImageUploadCustom::upload('category', $imgname, $request->picture, 400);
+            Category::where('id', '=', $id)->update([
+                'picture'=>'category/'.$imgname,
+            ]);
+        }
+
         return response()->json([
             'success'=>'success',
         ]);
@@ -74,10 +85,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::where('parent_id', '=', 0)->get();
-        $data = Category::where('parent_id', '!=', 0)->get();
-        return view('backend.category-sub.edit',[
-            'category'=>$category,
+        $data = Category::where('id', '=', $id)->first();
+        return view('backend.category.edit',[
             'data'=>$data,
         ]);
     }
@@ -85,9 +94,29 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        Category::where('id', '=', $request->id)->update([
+            'name'=>Str::title($request->name),
+            'slug'=>Str::slug($request->name),
+            'priority'=>$request->priority,
+        ]);
+
+        if ($request->picture != '') {
+
+            $category = Category::where('id', '=',$request->id)->first();
+            if ($category->picture != '') {
+                ImageUploadCustom::delete($category->picture);
+            }
+
+            $imgname = Str::slug($request->name).'-'.time().'.'.$request->picture->getClientOriginalExtension();
+            ImageUploadCustom::upload('category', $imgname, $request->picture, 400);
+            Category::where('id', '=', $request->id)->update([
+                'picture'=>'category/'.$imgname,
+            ]);
+        }
+
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -95,7 +124,11 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request)
     {
-        Category::findOrFail($request->id)->delete();
+        $category = Category::where('id', '=',$request->id)->first();
+        if ($category->picture != '') {
+            ImageUploadCustom::delete($category->picture);
+        }
+        $category->delete();
         return back();
     }
 
