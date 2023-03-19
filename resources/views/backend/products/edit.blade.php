@@ -226,62 +226,24 @@
                                 </div>
 
                                 <div class="col-md-12 mb-3">
+
+                                    @php
+                                        $all_variant_price = [];
+                                        $all_variant_quantity = [];
+                                    @endphp
+                                    @foreach (json_decode($data->variation) as $serial =>  $item)
+                                        @php
+                                        $all_variant_price[] = $item->variant_price;
+                                        $all_variant_quantity[] = $item->variant_quantity;
+                                        @endphp
+                                    @endforeach
+
+                                    <input type="hidden" name="all_variant_price" id="all_variant_price" value="{{implode(',',$all_variant_price)}}">
+                                    <input type="hidden" name="all_variant_quantity" id="all_variant_quantity" value="{{implode(',',$all_variant_quantity)}}">
+
+
                                     <div class="col-12 form-group sku_comb_result" id="sku_comb_result"></div>
-                                    <table class="table table-bordered physical_product_show">
-                                        <thead>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Variant</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Variant Price</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">SKU</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Quantity</label>
-                                                </td>
-                                                <td class="text-center">
-                                                    <label for="" class="control-label">Image</label>
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="generateHtmlTable">
-                                            @foreach (json_decode($data['variation']) as $item)
-                                            <tr>
-                                                <td>
-                                                    <label for="" class="control-label">{{$item->variant_name}}</label>
-                                                    <input type="hidden" value="{{$item->variant_name}}"
-                                                        name="variant_name[]">
-                                                    <input type="hidden" value="{{$item->variant_color}}"
-                                                        name="variant_color[]">
-                                                </td>
-                                                <td>
-                                                    <input type="number" name="variant_price[]"
-                                                        value="{{$item->variant_price}}" min="0" step="0.01"
-                                                        class="form-control" required="">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="variant_sku[]"
-                                                        value="{{$item->variant_sku}}" class="form-control" required="">
-                                                </td>
-                                                <td>
-                                                    <input type="number" name="variant_quantity[]"
-                                                        value="{{$item->variant_quantity}}" min="1" max="1000000"
-                                                        step="1" class="form-control" required="">
-                                                </td>
-                                                <td>
-                                                    <input type="file" name="variant_img[]" class="form-control"
-                                                        required="">
-                                                    {{-- <div>
-                                                        <img src="{{url($item->variant_img)}}" alt="" width="25">
-                                                    </div> --}}
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+
                                 </div>
                             </div>
                         </div>
@@ -584,11 +546,18 @@
         }
     }
 
+    function variant_pre_data_clean(){
+        $('#all_variant_price').val('');
+        $('#all_variant_quantity').val('');
+    }
+
     $('#attributes_box').on('change', function () {
+        variant_pre_data_clean();
         attributes_boxCode();
     });
 
     $('#color_box, #product_name').on('change', function () {
+        variant_pre_data_clean();
         updateFromController();
     });
 

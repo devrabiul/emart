@@ -135,6 +135,25 @@ class ColorController extends Controller
 
         // dd($request->colors);
         // dd($request->attr);
+        $all_variant_price = [];
+        $all_variant_quantity = [];
+        if($request->has('all_variant_price'))
+        {
+            if($request->all_variant_price != '')
+            {
+                $all_variant_price = explode(',', $request->all_variant_price);
+            }
+            // dd($all_variant_price);
+        }
+
+        if($request->has('all_variant_quantity'))
+        {
+            if($request->all_variant_quantity != '')
+            {
+                $all_variant_quantity = explode(',', $request->all_variant_quantity);
+            }
+            // dd($all_variant_quantity);
+        }
 
 
         foreach ($result as $key => $value) {
@@ -161,15 +180,26 @@ class ColorController extends Controller
                 }
             }
 
+            if (isset($all_variant_price[$key])) {
+                $price_gen = $all_variant_price[$key];
+            } else {
+                $price_gen = $request->selling_price;
+            }
+            if (isset($all_variant_quantity[$key])) {
+                $quantity_gen = $all_variant_quantity[$key];
+            } else {
+                $quantity_gen = 1;
+            }
+
             // dd($result);
             // dd($variant_name_gen);
 
             $colors .= '<tr><td><label for="" class="control-label">'.$variant_name_gen.'</label>'.
                             '<input type="hidden" value="'.$variant_name_gen.'" name="variant_name[]">'.
                             '<input type="hidden" value="'.$variant_color_code.'" name="variant_color[]"></td>'.
-                        '<td><input type="number" name="variant_price[]" value="" min="0" step="0.01" class="form-control" required=""></td>'.
+                        '<td><input type="number" name="variant_price[]" value="'.$price_gen.'" min="0" step="0.01" class="form-control" required=""></td>'.
                         '<td><input type="text" name="variant_sku[]" value="'.Str::upper($p_gen_name.$variant_name_gen).'" class="form-control" required=""></td>'.
-                        '<td><input type="number" name="variant_quantity[]" value="1" min="1" max="1000000" step="1" class="form-control variants_quantity" '.
+                        '<td><input type="number" name="variant_quantity[]" value="'.$quantity_gen.'" min="1" max="1000000" step="1" class="form-control variants_quantity" '.
                         'required="" onchange="updateVariants_quantity()"></td>'.
                         '<td><input type="file" name="variant_img[]" class="form-control" ></td></tr>';
         }
